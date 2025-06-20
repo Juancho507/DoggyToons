@@ -17,16 +17,15 @@ class DueñoDAO{
         $this->foto = $foto;
     }
 
-   public function autenticarse(){
-    return "SELECT idDueño
-            FROM dueño 
-            WHERE Correo = '" . $this->correo . "' 
-              AND Clave = '" . md5($this->clave) . "'";
-}
-
-public function consultar(){
-    return "SELECT Nombre, Apellido, Correo
-            FROM dueño
-            WHERE idDueño = '" . $this->id . "'";
-}
+    public function autenticarse() {
+        return "SELECT idDueño
+                FROM Dueño
+                WHERE correo = '" . $this -> correo . "' AND clave = '" . md5($this -> clave) . "'";
+    }
+    
+    public function consultar() {
+        return "SELECT nombre, apellido, correo
+                FROM Dueño
+                WHERE idDueño = " . $this->id;
+    }
 } 

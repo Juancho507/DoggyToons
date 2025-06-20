@@ -1,15 +1,13 @@
 <?php
-require_once "logica/Persona.php";
-require_once "persistencia/AdministradorDAO.php";
-require_once "persistencia/Conexion.php";
+require_once ("logica/Persona.php");
+require_once ("persistencia/AdministradorDAO.php");
+require_once ("persistencia/Conexion.php");
 
 class Administrador extends Persona{
     public function __construct($id = "", $nombre = "", $apellido = "", $correo = "", $clave = "" ) {
         parent::__construct($id, $nombre, $apellido, $correo, $clave);
     }
-    public function cerrar_sesion() {
-        session_destroy();
-    }
+    
     public function autenticarse() {
         $conexion = new Conexion();
         $administradorDAO = new AdministradorDAO("","","", $this -> correo, $this -> clave);

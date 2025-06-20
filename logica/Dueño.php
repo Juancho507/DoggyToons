@@ -1,15 +1,15 @@
 <?php
-require_once "logica/Persona.php";
-require_once "persistencia/DueñoDAO.php";
-require_once "persistencia/Conexion.php";
+require_once ("logica/Persona.php");
+require_once ("persistencia/DueñoDAO.php");
+require_once ("persistencia/Conexion.php");
 
 class Dueño extends Persona{
     public function __construct($id = "", $nombre = "", $apellido = "", $correo = "", $clave = "", $contacto = "", $foto = "") {
         parent::__construct($id, $nombre, $apellido, $correo, $clave, $contacto, $foto);
+        $this -> contacto = $contacto;
+        $this -> foto = $foto;
     }
-    public function cerrar_sesion() {
-        session_destroy();
-    }
+
     public function autenticarse() {
         $conexion = new Conexion();
         $dueñoDAO = new DueñoDAO("","","", $this -> correo, $this -> clave);
@@ -31,9 +31,11 @@ class Dueño extends Persona{
         $conexion -> abrir();
         $conexion -> ejecutar($dueñoDAO -> consultar());
         $datos = $conexion -> registro();
-        $this -> nombre = $datos[0];
-        $this -> apellido = $datos[1];
-        $this -> correo = $datos[2];
+        if ($datos) {
+            $this->nombre = $datos[0];
+            $this->apellido = $datos[1];
+            $this->correo = $datos[2];
+        }
         $conexion->cerrar();
-    }
+    } 
 }
