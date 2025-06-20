@@ -25,7 +25,7 @@ class PaseadorDAO{
 }
 
 public function consultar(){
-    return "SELECT Nombre, Apellido, Correo
+    return "SELECT Nombre, Apellido, Correo, Contacto
             FROM paseador
             WHERE idPaseador = '" . $this->id . "'";
 }

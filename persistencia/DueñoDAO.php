@@ -24,7 +24,7 @@ class DueñoDAO{
     }
     
     public function consultar() {
-        return "SELECT nombre, apellido, correo
+        return "SELECT nombre, apellido, correo, contacto
                 FROM Dueño
                 WHERE idDueño = " . $this->id;
     }

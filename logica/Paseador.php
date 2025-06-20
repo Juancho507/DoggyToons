@@ -1,9 +1,19 @@
 <?php
-require_once "logica/Persona.php";
-require_once "persistencia/PaseadorDAO.php";
-require_once "persistencia/Conexion.php";
+require_once ("logica/Persona.php");
+require_once ("persistencia/PaseadorDAO.php");
+require_once ("persistencia/Conexion.php");
 
 class Paseador extends Persona{
+    private $contacto;
+    private $foto;
+    
+    public function getContacto(){
+        return $this -> contacto;
+    }
+    
+    public function getFoto(){
+        return $this -> foto;
+    }
     public function __construct($id = "", $nombre = "", $apellido = "", $correo = "", $clave = "", $contacto = "", $foto = "") {
         parent::__construct($id, $nombre, $apellido, $correo, $clave, $contacto, $foto);
     }
@@ -34,6 +44,7 @@ class Paseador extends Persona{
         $this -> nombre = $datos[0];
         $this -> apellido = $datos[1];
         $this -> correo = $datos[2];
+        $this -> contacto = $datos[3];
         $conexion->cerrar();
     }
 }
