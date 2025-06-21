@@ -5,7 +5,7 @@ $dueño->consultar();
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
   <a class="navbar-brand" href="?pid=<?php echo base64_encode("presentacion/sesionDueño.php") ?>">
-    <i class="fa-solid fa-dog"></i> Panel Dueño
+    <i class="fa-solid fa-shield-dog"></i> Panel Dueño
   </a>
 
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDueño" aria-controls="navbarDueño" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@ $dueño->consultar();
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/paseo/historialPaseosDueño.php") ?>">
+        <a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/paseo/historialPaseos.php") ?>">
           <i class="fa-solid fa-list"></i> Historial de Paseos
         </a>
       </li>

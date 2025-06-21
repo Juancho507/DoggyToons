@@ -3,6 +3,11 @@ session_start();
 require ("logica/Administrador.php");
 require ("logica/Paseador.php");
 require ("logica/Dueño.php");
+require ("logica/Perro.php");
+require ("logica/Tamaño.php");
+require ("logica/Raza.php");
+require ("logica/Paseo.php");
+require ("logica/EstadoPaseo.php");
 
 ?>
 <!DOCTYPE html>
@@ -28,6 +33,9 @@ $paginas_con_autenticacion = array(
     "presentacion/sesionAdministrador.php",
     "presentacion/sesionPaseador.php",
     "presentacion/sesionDueño.php",
+    "presentacion/perro/consultarPerros.php",
+    "presentacion/paseo/historialPaseos.php",
+    "presentacion/perro/registrarPerro.php",
 );
 
 if (!isset($_GET["pid"])) {
