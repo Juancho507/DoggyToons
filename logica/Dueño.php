@@ -18,6 +18,34 @@ class Dueño extends Persona{
         parent::__construct($id, $nombre, $apellido, $correo, $clave, $contacto, $foto);
     }
     
+public function registrar() {
+        $conexion = new Conexion();
+        $dao = new DueñoDAO(
+            $this->id,
+            $this->nombre,
+            $this->apellido,
+            $this->correo,
+            $this->clave,
+            "", // codigoRecuperacion
+            "", // fechaExpiracion
+            strval($this->contacto),
+            strval($this->foto)
+        );
+        $conexion->abrir();
+        $conexion->ejecutar($dao->registrar());
+        $conexion->cerrar();
+    }
+
+    public function correoExiste() {
+        $conexion = new Conexion();
+        $dao = new DueñoDAO("", "", "", $this->correo);
+        $conexion->abrir();
+        $conexion->ejecutar($dao->correoExiste());
+        $existe = $conexion->filas() > 0;
+        $conexion->cerrar();
+        return $existe;
+    }
+
 
     public function autenticarse() {
         $conexion = new Conexion();

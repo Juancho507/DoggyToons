@@ -80,7 +80,7 @@ if(isset($_POST["autenticarse"])){
           </form>
 
           <div class="text-center mt-3">
-            <a href="#" class="fw-semibold" style="color: #e67e22; text-decoration: none;">¿Eres dueño nuevo? Regístrate aquí</a>
+            <a href="index.php?pid=<?php echo base64_encode('presentacion/nuevodueño.php'); ?>" class="fw-semibold" style="color: #e67e22; text-decoration: underline;">¿Eres dueño nuevo? Regístrate aquí</a>
           </div>
         </div>
       </div>
