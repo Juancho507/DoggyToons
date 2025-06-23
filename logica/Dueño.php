@@ -15,8 +15,11 @@ class Dueño extends Persona{
         return $this -> foto;
     }
     public function __construct($id = "", $nombre = "", $apellido = "", $correo = "", $clave = "", $contacto = "", $foto = "") {
-        parent::__construct($id, $nombre, $apellido, $correo, $clave, $contacto, $foto);
+        parent::__construct($id, $nombre, $apellido, $correo, $clave);
+        $this->contacto = $contacto;
+        $this->foto = $foto;
     }
+    
     
 public function registrar() {
         $conexion = new Conexion();
