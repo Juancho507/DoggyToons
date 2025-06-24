@@ -27,7 +27,7 @@ require ("logica/EstadoPaseo.php");
 <?php
 $paginas_sin_autenticacion = array(
     "presentacion/autenticarse.php",
-    "presentacion/nuevodueño.php",
+    "presentacion/dueño/nuevodueño.php",
     );
 
 $paginas_con_autenticacion = array(

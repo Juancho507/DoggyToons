@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   </div>
 
   <div class="text-center mt-3 mb-5">
-    <a href="index.php" class="text-decoration-none" style="color:#7e57c2;">← Volver al inicio</a>
+    <a  href="?pid=<?php echo base64_encode('presentacion/autenticarse.php'); ?>" class="text-decoration-none" style="color:#7e57c2;">← Volver al inicio</a>
   </div>
 
 </body>

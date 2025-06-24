@@ -59,7 +59,7 @@ if(isset($_POST["autenticarse"])){
       <div class="col-lg-5 col-12 d-flex justify-content-center">
         <div class="card shadow p-4" style="max-width: 500px; width: 100%; border-radius: 1rem; z-index: 2;">
           <h4 class="text-center mb-4">Bienvenido a DoggyToons</h4>
-          <form method="POST" action="index.php?pid=<?php echo base64_encode("presentacion/autenticarse.php"); ?>">
+          <form method="POST" action="?pid=<?php echo base64_encode("presentacion/autenticarse.php"); ?>">
             <input type="hidden" name="autenticarse" value="1">
 
             <div class="mb-3 text-start">
@@ -80,7 +80,7 @@ if(isset($_POST["autenticarse"])){
           </form>
 
           <div class="text-center mt-3">
-            <a href="index.php?pid=<?php echo base64_encode('presentacion/nuevodueño.php'); ?>" class="fw-semibold" style="color: #e67e22; text-decoration: underline;">¿Eres dueño nuevo? Regístrate aquí</a>
+            <a href="?pid=<?php echo base64_encode('presentacion/dueño/nuevodueño.php'); ?>" class="fw-semibold" style="color: #e67e22; text-decoration: underline;">¿Eres dueño nuevo? Regístrate aquí</a>
           </div>
         </div>
       </div>
