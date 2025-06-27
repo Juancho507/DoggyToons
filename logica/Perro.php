@@ -97,10 +97,29 @@ class Perro{
     public function insertar (){
         $conexion = new Conexion();
         $conexion->abrir();
-        $perroDAO = new perroDAO(nombre: $this -> nombre, raza:$this -> raza -> getId(), dueño:$this -> dueño -> getId() );
+        $perroDAO = new perroDAO(
+            nombre: $this -> nombre,
+            foto: $this -> foto,
+            raza: $this -> raza -> getId(), 
+            dueño: $this -> dueño -> getId() 
+            );
         $conexion -> ejecutar($perroDAO -> insertar());
         $conexion->cerrar();
         return $conexion -> getResultado();
+    }
+    public function eliminar() {
+        $perroDAO = new PerroDAO($this->id);
+        $conexion = new Conexion();
+        $conexion->abrir();
+        $conexion->ejecutar($perroDAO->eliminar());
+        $conexion->cerrar();
+    }
+    public function actualizar() {
+        $conexion = new Conexion();
+        $conexion->abrir();
+        $perroDAO = new PerroDAO($this->id, $this->nombre, $this->foto, $this->raza, $this->dueño);
+        $conexion->ejecutar($perroDAO->actualizar());
+        $conexion->cerrar();
     }
     }
 

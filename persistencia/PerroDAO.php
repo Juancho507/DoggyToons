@@ -42,13 +42,16 @@ class PerroDAO {
     }
     
     public function actualizar(){
-       // $setFoto = "";
         return "UPDATE Perro SET
-                    Nombre = '" . $this->nombre . "',
-                    Foto = '" . $this->foto . "',
-                    Raza_idRaza = " . $this->raza . ",
-                    Dueño_idDueño = " . $this->dueño . "
-                WHERE idPerro = " . $this->id;
+                Nombre = '" . $this->nombre . "',
+                Foto = '" . $this->foto . "',
+                Raza_idRaza = " . $this->raza . ",
+                Dueño_idDueño = " . $this->dueño . "
+            WHERE idPerro = " . $this->id;
+    }
+    
+    public function eliminar() {
+        return "DELETE FROM Perro WHERE idPerro = " . $this->id;
     }
 }
 ?>

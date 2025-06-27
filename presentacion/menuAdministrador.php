@@ -28,6 +28,7 @@ $administrador->consultar();
         </a>
         <ul class="dropdown-menu" aria-labelledby="paseadoresDropdown">
           <li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/paseador/gestionarPaseadores.php"); ?>">Gestionar Paseadores</a></li>
+          <li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/paseador/registrarPaseador.php") ?>">Registrar Paseador</a></li>
         </ul>
       </li>
 
