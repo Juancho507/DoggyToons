@@ -97,7 +97,7 @@ class Perro{
     public function insertar (){
         $conexion = new Conexion();
         $conexion->abrir();
-        $perroDAO = new perroDAO(
+        $perroDAO = new PerroDAO(
             nombre: $this -> nombre,
             foto: $this -> foto,
             raza: $this -> raza -> getId(), 

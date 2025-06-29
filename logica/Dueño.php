@@ -21,32 +21,47 @@ class Dueño extends Persona{
     }
     
     
-public function registrar() {
+    public function registrar (){
         $conexion = new Conexion();
-        $dao = new DueñoDAO(
-            $this->id,
-            $this->nombre,
-            $this->apellido,
-            $this->correo,
-            $this->clave,
-            "", // codigoRecuperacion
-            "", // fechaExpiracion
-            strval($this->contacto),
-            strval($this->foto)
-        );
         $conexion->abrir();
-        $conexion->ejecutar($dao->registrar());
+        $claveMd5 = md5($this->clave);
+        $dueñoDAO = new DueñoDAO(
+            nombre: $this -> nombre,
+            apellido: $this -> apellido,
+            correo: $this -> correo,
+            clave: $claveMd5,
+            contacto: $this -> contacto,
+            foto: $this -> foto
+            );
+        $conexion -> ejecutar($dueñoDAO -> registrar());
         $conexion->cerrar();
+        return $conexion -> getResultado();
     }
 
     public function correoExiste() {
         $conexion = new Conexion();
-        $dao = new DueñoDAO("", "", "", $this->correo);
+        $dueñoDAO = new DueñoDAO("", "", "", $this->correo);
         $conexion->abrir();
-        $conexion->ejecutar($dao->correoExiste());
+        $conexion->ejecutar($dueñoDAO->correoExiste());
         $existe = $conexion->filas() > 0;
         $conexion->cerrar();
         return $existe;
+    }
+    public function eliminar() {
+        $conexion = new Conexion();
+        $conexion->abrir();
+        $dueñoDAO = new DueñoDAO($this->id);
+        $conexion->ejecutar($dueñoDAO->eliminarPerros());
+        $conexion->ejecutar($dueñoDAO->eliminar());
+        $conexion->cerrar();
+    }
+    
+    public function actualizar() {
+        $conexion = new Conexion();
+        $conexion->abrir();
+        $dueñoDAO = new DueñoDAO($this->id, $this->nombre, $this->apellido, $this->correo, $this->clave, $this->contacto, $this->foto);
+        $conexion->ejecutar($dueñoDAO->actualizar());
+        $conexion->cerrar();
     }
 
 
@@ -75,7 +90,9 @@ public function registrar() {
             $this->nombre = $datos[0];
             $this->apellido = $datos[1];
             $this->correo = $datos[2];
-            $this->contacto = $datos[3];
+            $this->clave = $datos[3];
+            $this->contacto = $datos[4];
+            $this->foto = $datos[5];
         }
         $conexion->cerrar();
     } 

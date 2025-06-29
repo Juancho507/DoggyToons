@@ -61,8 +61,7 @@ if (isset($_POST["crearPerro"])) {
             }
         }
     }
-} else {
-}
+}  
 ?>
 <div class="container">
     <div class="row mt-4">
@@ -98,7 +97,7 @@ if (isset($_POST["crearPerro"])) {
                         <div class="form-group mb-4">
                             <label for="foto">Foto de Perfil:</label>
                             <input type="file" class="form-control" id="foto" name="foto" accept="image/png">
-                            <small class="form-text text-muted">Opcional. Solo se permiten imágenes PNG.</small>
+                            <small class="form-text text-muted">Solo se permiten imágenes PNG.</small>
                         </div>
                         
                         <button type="submit" name="crearPerro" class="btn btn-primary mt-4">Registrar Perro</button>

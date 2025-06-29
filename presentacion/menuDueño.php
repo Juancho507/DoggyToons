@@ -20,6 +20,12 @@ $dueño->consultar();
           <i class="fa-solid fa-house"></i> Inicio
         </a>
       </li>
+      
+            <li class="nav-item">
+        <a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/dueño/editarDueño.php") ?>">
+          <i class="fa-solid fa-user-pen"></i> Editar Datos
+        </a>
+      </li>
 
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="perrosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

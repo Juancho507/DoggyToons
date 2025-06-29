@@ -3,6 +3,10 @@
 $exito = false;
 $error = false;
 $correoDuplicado = false;
+$errorEnSubidaFoto = false;
+$mensaje = "";
+$claseMensaje = "";
+$fotoRuta = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nombre = $_POST["nombre"];
@@ -10,27 +14,48 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $correo = $_POST["correo"];
     $clave = $_POST["clave"];
     $contacto = $_POST["contacto"];
-    $foto = $_FILES["foto"]["name"];
-
-    if (!is_dir("img/fotos")) {
-        mkdir("img/fotos", 0777, true);
+    if (isset($_FILES["foto"]) && $_FILES["foto"]["error"] === UPLOAD_ERR_OK) {
+        $nombreFotoOriginal = $_FILES["foto"]["name"];
+        $rutaTemporal = $_FILES["foto"]["tmp_name"];
+        $extension = pathinfo($nombreFotoOriginal, PATHINFO_EXTENSION);
+        if (strtolower($extension) != 'png') {
+            $mensaje = "Formato de imagen no permitido. Solo se aceptan imágenes PNG.";
+            $claseMensaje = "alert-danger";
+            $errorEnSubidaFoto = true;
+        } else {
+            $nuevoNombreFoto = time() . ".png";
+            $directorioDestino = "imagenes/";          
+            $rutaServidor = $directorioDestino . $nuevoNombreFoto;
+            
+            if (move_uploaded_file($rutaTemporal, $rutaServidor)) {
+                $fotoRuta = $rutaServidor;
+            } else {
+                $mensaje = "Error al mover el archivo de la foto al servidor.";
+                $claseMensaje = "alert-danger";
+                $errorEnSubidaFoto = true;
+            }
+        }
+    } else if (isset($_FILES["foto"]) && $_FILES["foto"]["error"] != UPLOAD_ERR_NO_FILE) {
+        $mensaje = "Error en la subida de la foto (código: " . $_FILES["foto"]["error"] . ").";
+        $claseMensaje = "alert-danger";
+        $errorEnSubidaFoto = true;
     }
-
-    if ($foto != "") {
-        move_uploaded_file($_FILES["foto"]["tmp_name"], "img/fotos/" . $foto);
-    }
-
-    $dueño = new Dueño("", $nombre, $apellido, $correo, $clave, $contacto, $foto);
-
-    if ($dueño->correoExiste()) {
-        $correoDuplicado = true;
-    } else {
-        try {
-            $dueño->registrar();
-            $exito = true;
-            $_POST = [];
-        } catch (Exception $e) {
-            $error = true;
+    if (!$errorEnSubidaFoto) {
+        $dueño = new Dueño("", $nombre, $apellido, $correo, $clave, $contacto, $fotoRuta);
+        
+        if ($dueño->correoExiste()) {
+            $correoDuplicado = true;
+        } else {
+            try {
+                $dueño->registrar();
+                $exito = true;
+                $_POST = [];
+            } catch (Exception $e) {
+                $error = true;
+                if ($fotoRuta != "" && file_exists($fotoRuta)) {
+                    unlink($fotoRuta);
+                }
+            }
         }
     }
 }
@@ -42,6 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       <img src="img/logo.png" alt="Logo DoggyToons" style="width: 100%; height: 100%; object-fit: cover;">
     </div>
   </div>
+
   <h2 class="text-center">Registrar nuevo dueño</h2>
 
   <div class="row justify-content-center">
@@ -73,25 +99,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Foto de perfil</label>
+          <label class="form-label">Foto de perfil (solo PNG)</label>
           <input type="file" name="foto" class="form-control">
         </div>
-
         <?php if ($exito): ?>
           <div class="alert alert-success text-center mb-3">✅ ¡Usuario registrado exitosamente!</div>
-        <?php elseif ($correoDuplicado): ?>
-          <div class="alert alert-warning text-center mb-3">⚠️ El correo ya está registrado. Intenta con otro.</div>
-        <?php elseif ($error): ?>
-          <div class="alert alert-danger text-center mb-3">❌ Error al registrar el usuario. Inténtalo de nuevo.</div>
+        <?php elseif ($correoDuplicado || $error): ?>
+          <div class="alert alert-danger text-center mb-3">
+            ❌ <?php
+              if ($correoDuplicado) {
+                  echo "⚠️ El correo ya está registrado. Intenta con otro.";
+              } else {
+                  echo "❌ Error al registrar el usuario. Inténtalo de nuevo.";
+              }
+            ?>
+          </div>
+        <?php elseif ($errorEnSubidaFoto && !empty($mensaje)): ?>
+          <div class="alert <?= $claseMensaje ?> text-center mb-3"><?= $mensaje ?></div>
         <?php endif; ?>
+
         <button type="submit" name="registrarDueño" class="btn w-100" style="background-color: #7e57c2; color: white; border: none;">Registrar</button>
       </form>
     </div>
   </div>
 
   <div class="text-center mt-3 mb-5">
-    <a  href="?pid=<?php echo base64_encode('presentacion/autenticarse.php'); ?>" class="text-decoration-none" style="color:#7e57c2;">← Volver al inicio</a>
+    <a href="?pid=<?php echo base64_encode('presentacion/autenticarse.php'); ?>" class="text-decoration-none" style="color:#7e57c2;">← Volver al inicio</a>
   </div>
-
 </body>
 

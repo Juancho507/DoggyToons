@@ -16,6 +16,7 @@ if (isset($_POST["editar"])) {
     $rutaLocal = $_FILES["foto"]["tmp_name"];
     
     $rutaServidor = $perro->getFoto();
+    
     if ($foto != "") {
         $nuevoNombre = time() . ".png";
         $rutaServidor = "imagenes/" . $nuevoNombre;
