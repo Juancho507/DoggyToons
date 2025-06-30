@@ -1,14 +1,14 @@
 <?php
 class PaseadorDAO{
-    private String $id;
-    private String $nombre;
-    private String $apellido;
-    private String $correo;
-    private String $clave;
+    private $id;
+    private $nombre;
+    private $apellido;
+    private $correo;
+    private $clave;
     private $contacto;
     private $foto;
 
-    public function __construct(String $id = "", String $nombre = "", String $apellido = "", String $correo = "", String $clave = "", String $codigoRecuperacion = "", String $fechaExpiracion = "", $foto = "", $contacto =""){
+    public function __construct($id = "", $nombre = "", $apellido = "", $correo = "", $clave = "", $codigoRecuperacion = "", $fechaExpiracion = "", $foto = "", $contacto =""){
         $this->id = $id;
         $this->nombre = $nombre;
         $this->apellido = $apellido;
@@ -29,4 +29,9 @@ public function consultar(){
             FROM paseador
             WHERE idPaseador = '" . $this->id . "'";
 }
+public function consultarTodos() {
+    return "SELECT idPaseador, Nombre, Apellido FROM Paseador";
+}
+
+
 } 

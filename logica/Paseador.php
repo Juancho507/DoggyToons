@@ -37,14 +37,41 @@ class Paseador extends Persona{
     }
     public function consultar(){
         $conexion = new Conexion();
-        $paseadorDAO = new PaseadorDAO($this -> id);
-        $conexion -> abrir();
-        $conexion -> ejecutar($paseadorDAO -> consultar());
-        $datos = $conexion -> registro();
-        $this -> nombre = $datos[0];
-        $this -> apellido = $datos[1];
-        $this -> correo = $datos[2];
-        $this -> contacto = $datos[3];
+        $paseadorDAO = new PaseadorDAO($this->id);
+        $conexion->abrir();
+        $conexion->ejecutar($paseadorDAO->consultar());
+        
+        if ($conexion->filas() > 0) {
+            $datos = $conexion->registro();
+            if ($datos !== null) {
+                $this->nombre = $datos[0];
+                $this->apellido = $datos[1];
+                $this->correo = $datos[2];
+                $this->contacto = $datos[3];
+            }
+        } else {
+            $this->nombre = "";
+            $this->apellido = "";
+            $this->correo = "";
+            $this->contacto = "";
+        }
+        
         $conexion->cerrar();
     }
+    public function consultarTodos() {
+        $conexion = new Conexion();
+        $conexion->abrir();
+        $paseadorDAO = new PaseadorDAO();
+        $conexion->ejecutar($paseadorDAO->consultarTodos());
+        
+        $paseadores = [];
+        while ($registro = $conexion->registro()) {
+            $paseadores[] = new Paseador($registro[0], $registro[1], $registro[2]);
+        }
+        
+        $conexion->cerrar();
+        return $paseadores;
+    }
+    
+    
 }

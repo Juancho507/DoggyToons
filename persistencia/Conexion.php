@@ -26,6 +26,9 @@ class Conexion{
     public function getResultado(){
         return $this -> resultado;
     }
+    public function obtenerId() {
+        return $this->conexion->insert_id;
+    }
     
     
     
