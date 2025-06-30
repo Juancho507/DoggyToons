@@ -41,6 +41,7 @@ $paginas_con_autenticacion = array(
     "presentacion/perro/editarPerro.php",
     "presentacion/dueño/editarDueño.php",
     "presentacion/paseo/solicitarPaseo.php",
+    "presentacion/dueño/eliminarDueño.php",
 );
 
 if (!isset($_GET["pid"])) {

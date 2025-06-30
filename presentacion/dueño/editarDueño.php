@@ -15,10 +15,6 @@ if (isset($_POST["eliminar"])) {
             unlink($rutaFoto);
         }
     }
-    $dueño->eliminar();
-    session_destroy();
-    header("Location: index.php");
-    exit();
 }
 if (isset($_POST["editar"])) {
     $nombre = $_POST["nombre"];
@@ -116,14 +112,14 @@ include("presentacion/menuDueño.php");
                     </form>
 
                     <hr>
-                    <form method="post" onsubmit="return confirmarEliminacion();">
-                        <button type="submit" name="eliminar" class="btn btn-danger">Eliminar Cuenta</button>
-                    </form>
-                    <script>
-                        function confirmarEliminacion() {
-                            return confirm("¿Estás seguro de eliminar tu cuenta? Esta acción no se puede deshacer.");
-                        }
-                    </script>
+                    <form method="post" action="?pid=<?php echo base64_encode("presentacion/dueño/eliminarDueño.php"); ?>" onsubmit="return confirmarEliminacion();">
+   				 <button type="submit" name="eliminar" class="btn btn-danger">Eliminar Cuenta</button>
+					</form>
+                  			  <script>
+			function confirmarEliminacion() {
+   			 return confirm("¿Estás seguro de eliminar tu cuenta? Esta acción no se puede deshacer.");
+				}
+					</script>
 
                 </div>
             </div>
