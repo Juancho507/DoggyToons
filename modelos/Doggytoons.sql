@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-06-2025 a las 04:56:33
+-- Tiempo de generación: 01-07-2025 a las 22:43:45
 -- Versión del servidor: 9.2.0
 -- Versión de PHP: 8.2.12
 
@@ -64,16 +64,16 @@ CREATE TABLE `dueño` (
 --
 
 INSERT INTO `dueño` (`idDueño`, `Nombre`, `Apellido`, `Correo`, `Clave`, `Contacto`, `Foto`) VALUES
-(101, 'Fred', 'Picapiedra', 'fred@gmail.com', '134afc4870bdd96fc193fda6eaea831a', 310123456, NULL),
-(102, 'Homero', 'Simpson', 'homero@gmail.com', 'f3974bfce209a246c56049d6e27e7dfa', 320555112, NULL),
-(103, 'Shaggy', 'Rogers', 'shaggy@gmail.com', 'd66bcc0e7de711e49d3a5abd29a75e01', 315789012, NULL),
-(104, 'Charlie', 'Brown', 'charlie@gmail.com', 'cbaca0a0a39298908a7f0013b04bdc2a', 300111223, NULL),
-(105, 'Jon', 'Arbuckle', 'jon@gmail.com', 'ce1b0e5c1c3bcc99b430af1cd64084e5', 311222334, NULL),
-(106, 'Ryder', 'PawPatrol', 'ryder@gmail.com', 'd19495f1c7858d2e4a1084d4df5b70c2', 301333445, NULL),
-(107, 'Heidi', 'Prado', 'heidi@gmail.com', '640ee581f58db025b43db67239abf074', 302444556, NULL),
-(108, 'Ben', 'Tennyson', 'ben@gmail.com', '9660186406ddac0445b9f9b09785ac29', 303555667, NULL),
-(109, 'Johnny', 'Bravo', 'johnny@gmail.com', '87faf1c4acd45c9602d06fa1a62f5f7e', 304666778, NULL),
-(110, 'Muriel', 'Bagge', 'muriel@gmail.com', 'd0719c27ad2bed26f853ac1c1af83d65', 305777889, NULL);
+(101, 'Pedro', 'Picapiedra', 'pedro@gmail.com', '134afc4870bdd96fc193fda6eaea831a', 310123456, 'imagenes/1751220368.png'),
+(102, 'Homero', 'Simpson', 'homero@gmail.com', 'f3974bfce209a246c56049d6e27e7dfa', 320555112, 'imagenes/1751237338.png'),
+(103, 'Shaggy', 'Rogers', 'shaggy@gmail.com', 'd66bcc0e7de711e49d3a5abd29a75e01', 315789012, 'imagenes/1751237486.png'),
+(104, 'Charlie', 'Brown', 'charlie@gmail.com', 'cbaca0a0a39298908a7f0013b04bdc2a', 300111223, 'imagenes/1751237521.png'),
+(105, 'Jon', 'Arbuckle', 'jon@gmail.com', 'ce1b0e5c1c3bcc99b430af1cd64084e5', 311222334, 'imagenes/1751237564.png'),
+(106, 'Ryder', 'PawPatrol', 'ryder@gmail.com', 'd19495f1c7858d2e4a1084d4df5b70c2', 301333445, 'imagenes/1751237599.png'),
+(107, 'Heidi', 'Prado', 'heidi@gmail.com', '640ee581f58db025b43db67239abf074', 302444556, 'imagenes/1751237633.png'),
+(108, 'Ben', 'Tennyson', 'ben@gmail.com', '9660186406ddac0445b9f9b09785ac29', 303555667, 'imagenes/1751237669.png'),
+(109, 'Johnny', 'Bravo', 'johnny@gmail.com', '87faf1c4acd45c9602d06fa1a62f5f7e', 304666778, 'imagenes/1751237699.png'),
+(110, 'Muriel', 'Bagge', 'muriel@gmail.com', 'd0719c27ad2bed26f853ac1c1af83d65', 305777988, 'imagenes/1751237727.png');
 
 -- --------------------------------------------------------
 
@@ -106,8 +106,6 @@ CREATE TABLE `factura` (
   `idFactura` int NOT NULL,
   `FechaEmision` datetime NOT NULL,
   `Total` decimal(10,0) NOT NULL,
-  `ArchivoPDF` varchar(45) DEFAULT NULL,
-  `CodigoQR` varchar(45) DEFAULT NULL,
   `Paseo_idPaseo` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
@@ -115,10 +113,10 @@ CREATE TABLE `factura` (
 -- Volcado de datos para la tabla `factura`
 --
 
-INSERT INTO `factura` (`idFactura`, `FechaEmision`, `Total`, `ArchivoPDF`, `CodigoQR`, `Paseo_idPaseo`) VALUES
-(1, '2025-06-12 10:00:00', 30000, NULL, NULL, 1),
-(2, '2025-06-13 11:00:00', 24000, NULL, NULL, 3),
-(3, '2025-06-13 17:00:00', 59000, NULL, NULL, 4);
+INSERT INTO `factura` (`idFactura`, `FechaEmision`, `Total`, `Paseo_idPaseo`) VALUES
+(1, '2025-06-12 10:00:00', 30000, 1),
+(2, '2025-06-13 11:00:00', 24000, 3),
+(3, '2025-06-13 17:00:00', 59000, 4);
 
 -- --------------------------------------------------------
 
@@ -232,30 +230,30 @@ CREATE TABLE `perro` (
 --
 
 INSERT INTO `perro` (`idPerro`, `Nombre`, `Foto`, `Raza_idRaza`, `Dueño_idDueño`) VALUES
-(1, 'Dino', NULL, 6, 101),
-(2, 'Astro', NULL, 6, 101),
-(3, 'Bandit', NULL, 5, 101),
-(4, 'Ayudante de Santa', NULL, 12, 102),
-(5, 'Niebla', NULL, 13, 102),
-(6, 'Pluto', NULL, 14, 102),
-(7, 'Scooby', NULL, 6, 103),
-(8, 'Scrappy-Doo', NULL, 1, 103),
-(9, 'Dug', NULL, 9, 103),
-(10, 'Snoopy', NULL, 4, 104),
-(11, 'Spike', NULL, 5, 104),
-(12, 'Milú', NULL, 7, 104),
-(13, 'Odie', NULL, 16, 105),
-(14, 'Pongo', NULL, 1, 105),
-(15, 'Chase', NULL, 3, 106),
-(16, 'Marshall', NULL, 1, 106),
-(17, 'Dodger', NULL, 10, 107),
-(18, 'Sparky', NULL, 11, 107),
-(19, 'Bolt', NULL, 3, 108),
-(20, 'Clifford', NULL, 15, 108),
-(21, 'Droopy', NULL, 2, 109),
-(22, 'Jake', NULL, 5, 109),
-(23, 'Coraje', NULL, 4, 110),
-(24, 'Ren', NULL, 8, 110);
+(1, 'Dino', 'imagenes/1750985702.png', 6, 101),
+(2, 'Astro', 'imagenes/1750985525.png', 6, 101),
+(3, 'Bandit', 'imagenes/1750985544.png', 5, 101),
+(4, 'Ayudante de Santa', 'imagenes/1750985923.png', 12, 102),
+(5, 'Niebla', 'imagenes/1750985947.png', 13, 102),
+(6, 'Pluto', 'imagenes/1750985985.png', 14, 102),
+(7, 'Scooby', 'imagenes/1750986039.png', 6, 103),
+(8, 'Scrappy-Doo', 'imagenes/1750986053.png', 6, 103),
+(9, 'Dug', 'imagenes/1750986082.png', 9, 103),
+(10, 'Snoopy', 'imagenes/1750986566.png', 4, 104),
+(11, 'Spike', 'imagenes/1750986481.png', 5, 104),
+(12, 'Milú', 'imagenes/1750986585.png', 7, 104),
+(13, 'Odie', 'imagenes/1750986666.png', 16, 105),
+(14, 'Pongo', 'imagenes/1750986680.png', 1, 105),
+(15, 'Chase', 'imagenes/1750986715.png', 3, 106),
+(16, 'Marshall', 'imagenes/1750986725.png', 1, 106),
+(17, 'Dodger', 'imagenes/1750986762.png', 10, 107),
+(18, 'Sparky', 'imagenes/1750986784.png', 11, 107),
+(19, 'Bolt', 'imagenes/1750986816.png', 3, 108),
+(20, 'Clifford', 'imagenes/1750986828.png', 15, 108),
+(21, 'Droopy', 'imagenes/1750986976.png', 2, 109),
+(22, 'Jake', 'imagenes/1750987026.png', 5, 109),
+(23, 'Coraje', 'imagenes/1750987158.png', 4, 110),
+(24, 'Ren', 'imagenes/1750987224.png', 8, 110);
 
 -- --------------------------------------------------------
 
@@ -440,7 +438,7 @@ ALTER TABLE `tarifa`
 -- AUTO_INCREMENT de la tabla `dueño`
 --
 ALTER TABLE `dueño`
-  MODIFY `idDueño` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `idDueño` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
 --
 -- AUTO_INCREMENT de la tabla `estadopaseo`
@@ -464,13 +462,13 @@ ALTER TABLE `paseador`
 -- AUTO_INCREMENT de la tabla `paseo`
 --
 ALTER TABLE `paseo`
-  MODIFY `idPaseo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idPaseo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `perro`
 --
 ALTER TABLE `perro`
-  MODIFY `idPerro` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `idPerro` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT de la tabla `raza`
