@@ -22,6 +22,7 @@ require ("logica/EstadoPaseo.php");
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <link href="https://use.fontawesome.com/releases/v5.11.1/css/all.css" rel="stylesheet" />
 <script src="https://kit.fontawesome.com/14596e32cc.js" crossorigin="anonymous"></script>
+<link rel="shortcut icon" href="img/Logo.png" type="image/x-icon">
 </head>
 
 <?php
