@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-07-2025 a las 22:43:45
+-- Tiempo de generación: 02-07-2025 a las 02:32:18
 -- Versión del servidor: 9.2.0
 -- Versión de PHP: 8.2.12
 
@@ -92,9 +92,10 @@ CREATE TABLE `estadopaseo` (
 
 INSERT INTO `estadopaseo` (`idEstadoPaseo`, `Valor`) VALUES
 (1, 'Pendiente'),
-(2, 'En Curso'),
+(2, 'Aceptada'),
 (3, 'Completado'),
-(4, 'Cancelado');
+(4, 'Cancelado'),
+(5, 'Pagada');
 
 -- --------------------------------------------------------
 
@@ -444,7 +445,7 @@ ALTER TABLE `dueño`
 -- AUTO_INCREMENT de la tabla `estadopaseo`
 --
 ALTER TABLE `estadopaseo`
-  MODIFY `idEstadoPaseo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idEstadoPaseo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `factura`
