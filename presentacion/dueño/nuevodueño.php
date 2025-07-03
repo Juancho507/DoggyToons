@@ -106,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
           <div class="alert alert-success text-center mb-3">✅ ¡Usuario registrado exitosamente!</div>
         <?php elseif ($correoDuplicado || $error): ?>
           <div class="alert alert-danger text-center mb-3">
-            ❌ <?php
+             <?php
               if ($correoDuplicado) {
                   echo "⚠️ El correo ya está registrado. Intenta con otro.";
               } else {
