@@ -121,6 +121,33 @@ class Perro{
         $conexion->ejecutar($perroDAO->actualizar());
         $conexion->cerrar();
     }
+    public function consultarPorDueño($idDueño) {
+        $listaPerros = [];
+        $perroDAO = new PerroDAO();
+        $sentencia = $perroDAO->consultarPerrosPorDueño((int)$idDueño);
+        
+        $conexion = new Conexion();
+        $conexion->abrir();
+        $conexion->ejecutar($sentencia);
+        
+        if ($conexion->filas() > 0) {
+            while ($registro = $conexion->registro()) {
+                $idPerro = $registro[0];
+                $nombrePerro = $registro[1];
+                $fotoPerro = $registro[2];
+                $raza = $registro[3];
+                $dueño = $registro[4];
+                $tamaño = $registro[5];
+                
+                $listaPerros[] = new Perro($idPerro, $nombrePerro, $fotoPerro, $raza, $dueño, $tamaño);
+            }
+        }
+        
+        $conexion->cerrar();
+        return $listaPerros;
+    }
+    
+    
     }
 
 ?>

@@ -8,14 +8,7 @@ $error = 0;
 $id = $_SESSION["id"];
 $dueño = new Dueño($id);
 $dueño->consultar();
-if (isset($_POST["eliminar"])) {
-    if ($dueño->getFoto() != "") {
-        $rutaFoto = __DIR__ . "/../../" . $dueño->getFoto();
-        if (file_exists($rutaFoto)) {
-            unlink($rutaFoto);
-        }
-    }
-}
+
 if (isset($_POST["editar"])) {
     $nombre = $_POST["nombre"];
     $apellido = $_POST["apellido"];
