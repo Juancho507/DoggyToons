@@ -8,6 +8,7 @@ require ("logica/Tamaño.php");
 require ("logica/Raza.php");
 require ("logica/Paseo.php");
 require ("logica/EstadoPaseo.php");
+require ("logica/Tarifa.php");
 
 ?>
 <!DOCTYPE html>
@@ -43,6 +44,8 @@ $paginas_con_autenticacion = array(
     "presentacion/dueño/editarDueño.php",
     "presentacion/paseo/solicitarPaseo.php",
     "presentacion/dueño/eliminarDueño.php",
+    "presentacion/paseador/consultarPaseadores.php",
+    "presentacion/paseador/editarPaseador.php",
 );
 
 if (!isset($_GET["pid"])) {

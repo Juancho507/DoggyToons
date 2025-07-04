@@ -7,14 +7,19 @@ class PaseadorDAO{
     private $clave;
     private $contacto;
     private $foto;
-
-    public function __construct($id = "", $nombre = "", $apellido = "", $correo = "", $clave = "", $codigoRecuperacion = "", $fechaExpiracion = "", $foto = "", $contacto =""){
+    private $informacion;
+    private $activo; 
+    
+    public function __construct($id = "", $nombre = "", $apellido = "", $correo = "", $clave = "", $contacto = "", $foto = "", $informacion = "", $activo = ""){
         $this->id = $id;
         $this->nombre = $nombre;
         $this->apellido = $apellido;
         $this->correo = $correo;
         $this->clave = $clave;
+        $this->contacto = $contacto;
         $this->foto = $foto;
+        $this->informacion = $informacion;
+        $this->activo = $activo;
     }
 
    public function autenticarse(){
@@ -25,13 +30,25 @@ class PaseadorDAO{
 }
 
 public function consultar(){
-    return "SELECT Nombre, Apellido, Correo, Contacto
-            FROM paseador
+    return "SELECT Nombre, Apellido, Correo, Clave, Contacto, Foto, Informacion, Activo
+            FROM Paseador
             WHERE idPaseador = '" . $this->id . "'";
 }
+
 public function consultarTodos() {
-    return "SELECT idPaseador, Nombre, Apellido FROM Paseador";
+    return "SELECT idPaseador, Nombre, Apellido, Correo, Contacto, Foto, Informacion, Activo
+            FROM Paseador"; 
 }
-
-
+public function actualizar(){
+    return "UPDATE Paseador SET
+            Nombre = '" . $this->nombre . "',
+            Apellido = '" . $this->apellido . "',
+            Correo = '" . $this->correo . "',
+            Clave = '" . $this->clave . "',
+           Contacto = " . $this->contacto . ",
+            Foto = '" . $this->foto . "',
+            Informacion = '" . $this->informacion . "'
+            WHERE idPaseador = " . $this->id;
+}
+    
 } 

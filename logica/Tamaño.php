@@ -1,4 +1,6 @@
 <?php
+require_once ("persistencia/TamañoDAO.php");
+require_once ("persistencia/Conexion.php");
 
 class Tamaño{
     private $id;

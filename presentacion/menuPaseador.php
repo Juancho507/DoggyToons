@@ -20,6 +20,12 @@ $paseador->consultar();
           <i class="fa-solid fa-house"></i> Inicio
         </a>
       </li>
+      
+               <li class="nav-item">
+        <a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/paseador/editarPaseador.php") ?>">
+          <i class="fa-solid fa-user-pen"></i> Editar Datos
+        </a>
+      </li>
 
       <li class="nav-item">
         <a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/paseador/establecerTarifa.php"); ?>">

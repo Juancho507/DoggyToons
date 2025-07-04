@@ -37,17 +37,27 @@ $dueño->consultar();
         </ul>
       </li>
 
-      <li class="nav-item">
-        <a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/paseo/solicitarPaseo.php") ?>">
-          <i class="fa-solid fa-calendar-plus"></i> Solicitar Paseo
-        </a>
-      </li>
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="paseadoresDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="	fa-solid fa-person-walking"></i> Paseadores
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="paseadoresDropdown">
+    <li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/paseador/consultarPaseadores.php") ?>">Ver Todos</a></li>
+    <li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/paseo/solicitarPaseo.php") ?>">Solicitar Paseo</a></li>
+  </ul>
+</li>
 
-      <li class="nav-item">
-        <a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/paseo/historialPaseos.php") ?>">
-          <i class="fa-solid fa-list"></i> Historial de Paseos
-        </a>
-      </li>
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="historialDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fa-solid fa-file-lines"></i> Historial
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="historialDropdown">
+    <li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/paseo/historialPaseos.php") ?>">Paseos</a></li>
+    <li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/paseo/FacturasPaseo.php") ?>">Facturas</a></li>
+  </ul>
+</li>
+
+
 
     </ul>
 

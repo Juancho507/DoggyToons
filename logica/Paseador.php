@@ -6,6 +6,9 @@ require_once ("persistencia/Conexion.php");
 class Paseador extends Persona{
     private $contacto;
     private $foto;
+    private $informacion;
+    private $tarifas = [];
+    private $activo;
     
     public function getContacto(){
         return $this -> contacto;
@@ -14,8 +17,21 @@ class Paseador extends Persona{
     public function getFoto(){
         return $this -> foto;
     }
-    public function __construct($id = "", $nombre = "", $apellido = "", $correo = "", $clave = "", $contacto = "", $foto = "") {
+    public function getInformacion() {
+        return $this->informacion;
+    }
+    public function getTarifas() {
+        return $this->tarifas;
+    }
+    public function getActivo() {
+        return $this->activo;
+    }
+    public function __construct($id = "", $nombre = "", $apellido = "", $correo = "", $clave = "", $contacto = "", $foto = "", $informacion = "", $activo = "") {
         parent::__construct($id, $nombre, $apellido, $correo, $clave, $contacto, $foto);
+        $this->contacto = $contacto;
+        $this->foto = $foto;
+        $this->informacion = $informacion;
+        $this->activo = $activo;
     }
     public function cerrar_sesion() {
         session_destroy();
@@ -35,6 +51,21 @@ class Paseador extends Persona{
         }
 
     }
+    public function actualizar() {
+        $conexion = new Conexion();
+        $conexion->abrir();
+        $paseadorDAO = new PaseadorDAO(
+            $this->id,
+            $this->nombre,
+            $this->apellido,
+            $this->correo,
+            $this->clave,
+            $this->contacto,
+            $this->foto,
+            $this->informacion
+            );$conexion->ejecutar($paseadorDAO->actualizar());
+        $conexion->cerrar();
+    }
     public function consultar(){
         $conexion = new Conexion();
         $paseadorDAO = new PaseadorDAO($this->id);
@@ -47,13 +78,23 @@ class Paseador extends Persona{
                 $this->nombre = $datos[0];
                 $this->apellido = $datos[1];
                 $this->correo = $datos[2];
-                $this->contacto = $datos[3];
+                $this->clave = $datos[3]; 
+                $this->contacto = $datos[4];
+                $this->foto = $datos[5];
+                $this->informacion = $datos[6];
+                $this->activo = $datos[7]; 
+                $this->consultarTarifas();
             }
         } else {
             $this->nombre = "";
             $this->apellido = "";
             $this->correo = "";
+            $this->clave = "";
             $this->contacto = "";
+            $this->foto = "";
+            $this->informacion = "";
+            $this->activo = "";
+            $this->tarifas = [];
         }
         
         $conexion->cerrar();
@@ -66,12 +107,45 @@ class Paseador extends Persona{
         
         $paseadores = [];
         while ($registro = $conexion->registro()) {
-            $paseadores[] = new Paseador($registro[0], $registro[1], $registro[2]);
+        
+            $tempPaseador = new Paseador( 
+                $registro[0],
+                $registro[1],
+                $registro[2],
+                $registro[3],
+                "",
+                $registro[4],
+                $registro[5],
+                $registro[6],
+                $registro[7]
+                );
+            $tempPaseador->consultarTarifas();
+            $paseadores[] = $tempPaseador; 
         }
         
         $conexion->cerrar();
         return $paseadores;
     }
-    
+    public function consultarTarifas() {
+        
+        $conexion = new Conexion();
+        $tarifaDAO = new TarifaDAO();
+        $conexion->abrir();
+        $conexion->ejecutar($tarifaDAO->consultarPorPaseador($this->id));
+        
+        $this->tarifas = []; 
+        while ($registroTarifa = $conexion->registro()) {
+            if ($registroTarifa !== null) {
+                $this->tarifas[] = new Tarifa(
+                    $registroTarifa[0], 
+                    $registroTarifa[1], 
+                    $registroTarifa[2], 
+                    $registroTarifa[3], 
+                    $registroTarifa[4]  
+                    );
+            }
+        }
+        $conexion->cerrar();
+    }
     
 }

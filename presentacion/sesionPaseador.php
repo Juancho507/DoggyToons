@@ -16,7 +16,17 @@ $paseador ->consultar();
     <div class="col-md-7 mx-auto"> 
       <div class="card">
         <div class="card-body">
-        <h2 class="my-2">Perfil</h2>
+        <h2 class="my-2 text-center">Perfil</h2>
+          <div class="text-center mb-3">
+            <?php
+            if ($paseador->getFoto() != "" && file_exists($paseador->getFoto())) {
+                echo "<img src='" . $paseador->getFoto() . "' class='rounded-circle shadow' height='150'>";
+            } else {
+                echo "<p class='text-muted'>No hay foto de perfil.</p>";
+            }
+            ?>
+          </div>
+
           <div class="table-responsive-sm my-2">
             <table class="table table-striped">
               <tr>
