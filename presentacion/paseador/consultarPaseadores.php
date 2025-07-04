@@ -32,7 +32,6 @@ $listaPaseadores = $paseador->consultarTodos();
                             echo ($p->getActivo() == 1) ? '<span class="badge bg-success">Activo</span>' : '<span class="badge bg-danger">Inactivo</span>'; 
                             ?>
                         </p>
-                        <p><strong>Estado:</strong> <?php echo htmlspecialchars($p->getCorreo()); ?></p>
                         <p><strong>Correo:</strong> <?php echo htmlspecialchars($p->getCorreo()); ?></p>
                         <p><strong>Contacto:</strong> <?php echo htmlspecialchars($p->getContacto()); ?></p>
                         <p><strong>Descripción:</strong> <?php echo htmlspecialchars($p->getInformacion()); ?></p>
