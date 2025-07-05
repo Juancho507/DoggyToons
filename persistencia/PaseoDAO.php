@@ -47,8 +47,8 @@ class PaseoDAO {
             p.FechaFin,
             CONCAT(pas.Nombre, ' ', pas.Apellido) AS paseador,
             ep.Valor AS EstadoPaseoValor,
-            per.Nombre AS nombre_perro, -- <<< CAMBIO CLAVE: Obtener un solo nombre de perro
-            per.idPerro -- <<< AGREGADO: Obtener el ID del perro
+            per.Nombre AS nombre_perro,
+            per.idPerro 
         FROM Paseo p
         INNER JOIN Paseador pas ON p.Paseador_idPaseador = pas.idPaseador
         INNER JOIN EstadoPaseo ep ON p.EstadoPaseo_idEstadoPaseo = ep.idEstadoPaseo
