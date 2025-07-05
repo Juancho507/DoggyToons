@@ -40,25 +40,23 @@ class PaseoDAO {
     WHERE per.Dueño_idDueño = $idDueño
     ORDER BY p.FechaInicio DESC";
     }
-    
-    
-    
     public function consultarPaseosPorPaseador($idPaseador) {
         return "SELECT
-                p.idPaseo,
-                p.FechaInicio,
-                p.FechaFin,
-                CONCAT(pas.Nombre, ' ', pas.Apellido) AS paseador,
-                ep.Valor AS EstadoPaseoValor,
-                GROUP_CONCAT(per.Nombre SEPARATOR ', ') AS nombres_perros
-            FROM Paseo p
-            INNER JOIN Paseador pas ON p.Paseador_idPaseador = pas.idPaseador
-            INNER JOIN EstadoPaseo ep ON p.EstadoPaseo_idEstadoPaseo = ep.idEstadoPaseo
-            INNER JOIN PaseoPerro pp ON p.idPaseo = pp.Paseo_idPaseo
-            INNER JOIN Perro per ON pp.Perro_idPerro = per.idPerro
-            WHERE p.Paseador_idPaseador = $idPaseador
-            GROUP BY p.idPaseo, p.FechaInicio, p.FechaFin, pas.Nombre, pas.Apellido, ep.Valor
-            ORDER BY p.FechaInicio DESC";
+            p.idPaseo,
+            p.FechaInicio,
+            p.FechaFin,
+            CONCAT(pas.Nombre, ' ', pas.Apellido) AS paseador,
+            ep.Valor AS EstadoPaseoValor,
+            per.Nombre AS nombre_perro, -- <<< CAMBIO CLAVE: Obtener un solo nombre de perro
+            per.idPerro -- <<< AGREGADO: Obtener el ID del perro
+        FROM Paseo p
+        INNER JOIN Paseador pas ON p.Paseador_idPaseador = pas.idPaseador
+        INNER JOIN EstadoPaseo ep ON p.EstadoPaseo_idEstadoPaseo = ep.idEstadoPaseo
+        INNER JOIN PaseoPerro pp ON p.idPaseo = pp.Paseo_idPaseo
+        INNER JOIN Perro per ON pp.Perro_idPerro = per.idPerro
+        WHERE p.Paseador_idPaseador = $idPaseador
+        -- ELIMINAR EL GROUP BY, AHORA QUEREMOS UNA FILA POR CADA PERRO
+        ORDER BY p.FechaInicio DESC";
     }
     
     
@@ -75,21 +73,20 @@ class PaseoDAO {
                 ORDER BY p.FechaInicio DESC";
     }
     public function consultarRealizadosPorPaseador($idPaseador) {
-        return "
-        SELECT
+        return "SELECT
             p.idPaseo,
             p.FechaInicio,
             p.FechaFin,
-            GROUP_CONCAT(per.Nombre SEPARATOR ', ') AS nombres_perros
+            per.Nombre AS nombres_perros,
+            per.idPerro 
         FROM Paseo p
         JOIN PaseoPerro pp ON p.idPaseo = pp.Paseo_idPaseo
         JOIN Perro per ON pp.Perro_idPerro = per.idPerro
         JOIN EstadoPaseo ep ON p.EstadoPaseo_idEstadoPaseo = ep.idEstadoPaseo
         WHERE p.Paseador_idPaseador = $idPaseador
           AND ep.Valor = 'Completado'
-        GROUP BY p.idPaseo, p.FechaInicio, p.FechaFin
-        ORDER BY p.FechaInicio DESC
-    ";
+        -- <<< ELIMINAR GROUP BY para que cada perro aparezca en su propia fila
+        ORDER BY p.FechaInicio DESC";
     }
     public function actualizarEstado($nuevoEstado) {
         return "UPDATE paseo

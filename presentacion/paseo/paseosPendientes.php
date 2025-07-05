@@ -6,11 +6,10 @@ include("presentacion/encabezadoP.php");
 include("presentacion/menu" . ucfirst($rol) . ".php");
 
 $paseo = new Paseo();
-$paseos = $paseo->consultarHistorial("paseador", $id); 
-
+$paseos = $paseo->consultarHistorial("paseador", $id);
 
 $estadoP = new EstadoPaseo();
-$estadosPaseo = $estadoP->consultarTodos(); 
+$estadosPaseo = $estadoP->consultarTodos();
 
 ?>
 
@@ -31,17 +30,19 @@ $estadosPaseo = $estadoP->consultarTodos();
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($paseos as $p) { ?>
-                    <tr > 
+                <?php foreach ($paseos as $p) {
+                    $uniqueElementId = $p->getId() . '_' . $p->getIdPerro(); 
+                    ?>
+                    <tr >
                         <td><?php echo substr($p->getFechaInicio(), 0, 10); ?></td>
                         <td><?php echo substr($p->getFechaInicio(), 11, 5); ?></td>
                         <td><?php echo $p->getNombrePerro(); ?></td>
-                        <td id="estadoTexto<?php echo $p->getId(); ?>"><?php echo $p->getEstadoPaseo(); ?></td>
+                        <td id="estadoTexto<?php echo $uniqueElementId; ?>"><?php echo $p->getEstadoPaseo(); ?></td>
                         <td>
                             <?php foreach ($estadosPaseo as $e) {
-                                if ($e->getId() == 1) continue;?> <button class="btn btn-outline-dark btn-sm me-1"
-                                
-                                    id="btnEstado<?php echo $e->getValor() . $p->getId(); ?>">
+                                if ($e->getId() == 1) continue;?>
+                                <button class="btn btn-outline-dark btn-sm me-1"
+                                    id="btnEstado<?php echo $e->getValor() . $uniqueElementId; ?>">
                                     <?php echo $e->getValor(); ?>
                                 </button>
                             <?php } ?>
@@ -55,16 +56,19 @@ $estadosPaseo = $estadoP->consultarTodos();
 
 <script>
 $(document).ready(function(){
-<?php 
+<?php
 foreach ($paseos as $p) {
+    $uniqueElementId = $p->getId() . '_' . $p->getIdPerro(); 
     foreach ($estadosPaseo as $e) {
-        echo '$("#btnEstado' . $e->getValor() . $p->getId() . '").click(function(){' . "\n";
+        if ($e->getId() == 1) continue;
+
+        echo '$("#btnEstado' . $e->getValor() . $uniqueElementId . '").click(function(){' . "\n";
         echo '  $.ajax({' . "\n";
         echo '    url: "ajax/actualizarEstadoPaseo.php",' . "\n";
         echo '    method: "GET",' . "\n";
         echo '    data: { id: "' . $p->getId() . '", estado: "' . $e->getId() . '" },' . "\n";
         echo '    success: function(response) {' . "\n";
-        echo '      $("#estadoTexto' . $p->getId() . '").text("' . $e->getValor() . '");' . "\n";
+        echo '      $("#estadoTexto' . $uniqueElementId . '").text("' . $e->getValor() . '");' . "\n";
         echo '    }' . "\n";
         echo '  });' . "\n";
         echo '});' . "\n";

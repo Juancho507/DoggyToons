@@ -167,7 +167,8 @@ class Paseo {
             $resultados[] = [
                 "fechaInicio" => $registro[1],
                 "fechaFin" => $registro[2],
-                "perros" => $registro[3]
+                "perros" => $registro[3],
+                "idPerro" => $registro[4]
             ];
         }
         

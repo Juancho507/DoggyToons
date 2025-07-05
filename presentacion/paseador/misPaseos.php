@@ -22,19 +22,16 @@ $misPaseos = $paseo->consultarRealizadosPorPaseador($id);
         <tr>
           <th>Fecha de inicio</th>
           <th>Fecha de fin</th>
-          <th>Perro(s)</th>
-        </tr>
+          <th>Perro(s)</th> </tr>
       </thead>
       <tbody>
         <?php foreach ($misPaseos as $p) { ?>
           <tr>
             <td><?php echo $p["fechaInicio"]; ?></td>
             <td><?php echo $p["fechaFin"]; ?></td>
-            <td><?php echo $p["perros"]; ?></td>
-          </tr>
+            <td><?php echo $p["perros"]; ?></td> </tr>
         <?php } ?>
       </tbody>
     </table>
   <?php } ?>
 </div>
-
