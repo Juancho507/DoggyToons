@@ -29,6 +29,9 @@ class Conexion{
     public function obtenerId() {
         return $this->conexion->insert_id;
     }
+    public function afectadas() {
+        return $this->conexion->affected_rows;
+    }
     
     
     

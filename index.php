@@ -46,6 +46,11 @@ $paginas_con_autenticacion = array(
     "presentacion/dueño/eliminarDueño.php",
     "presentacion/paseador/consultarPaseadores.php",
     "presentacion/paseador/editarPaseador.php",
+    "presentacion/paseador/establecerTarifa.php",
+    "presentacion/paseador/misPaseos.php",
+    "presentacion/paseo/paseosPendientes.php",
+    "presentacion/paseo/facturasPaseo.php",
+    "presentacion/paseo/verFacturas.php",
 );
 
 if (!isset($_GET["pid"])) {

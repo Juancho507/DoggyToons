@@ -1,6 +1,6 @@
 <?php
-require_once("persistencia/Conexion.php");
-require_once("persistencia/EstadoPaseoDAO.php");
+require_once(__DIR__ . "/../persistencia/Conexion.php");
+require_once(__DIR__ . "/../persistencia/EstadoPaseoDAO.php");
 
 class EstadoPaseo {
     private $id;

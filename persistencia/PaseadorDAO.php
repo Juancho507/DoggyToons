@@ -50,5 +50,6 @@ public function actualizar(){
             Informacion = '" . $this->informacion . "'
             WHERE idPaseador = " . $this->id;
 }
+
     
 } 

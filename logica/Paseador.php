@@ -141,7 +141,9 @@ class Paseador extends Persona{
                     $registroTarifa[1], 
                     $registroTarifa[2], 
                     $registroTarifa[3], 
-                    $registroTarifa[4]  
+                    $registroTarifa[4], 
+                    $registroTarifa[5],
+                    $registroTarifa[6]
                     );
             }
         }

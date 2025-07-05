@@ -53,7 +53,7 @@ $dueño->consultar();
   </a>
   <ul class="dropdown-menu" aria-labelledby="historialDropdown">
     <li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/paseo/historialPaseos.php") ?>">Paseos</a></li>
-    <li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/paseo/FacturasPaseo.php") ?>">Facturas</a></li>
+    <li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/paseo/verFacturas.php") ?>">Facturas</a></li>
   </ul>
 </li>
 

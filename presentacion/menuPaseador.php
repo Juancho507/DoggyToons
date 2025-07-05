@@ -34,13 +34,13 @@ $paseador->consultar();
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/paseo/aceptarPaseos.php"); ?>">
+        <a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/paseo/paseosPendientes.php"); ?>">
           <i class="fa-solid fa-calendar-check"></i> Paseos Pendientes
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/paseo/misPaseos.php"); ?>">
+        <a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/paseador/misPaseos.php"); ?>">
           <i class="fa-solid fa-list"></i> Mis Paseos
         </a>
       </li>
