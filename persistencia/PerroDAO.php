@@ -53,5 +53,8 @@ class PerroDAO {
     public function eliminar() {
         return "DELETE FROM Perro WHERE idPerro = " . $this->id;
     }
+    public function eliminarPaseosPorPerro($idPerro) {
+        return "DELETE FROM PaseoPerro WHERE Perro_idPerro = $idPerro";
+    }
 }
 ?>

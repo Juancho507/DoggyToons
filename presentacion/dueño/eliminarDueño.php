@@ -18,6 +18,7 @@ if ($dueño->getFoto() != "") {
 $perro = new Perro();
 $perrosDelDueño = $perro->consultarPorDueño($id);
 foreach ($perrosDelDueño as $p) {
+    $p->eliminarPaseos();
     if ($p->getFoto() != "") {
         $rutaFotoPerro = __DIR__ . "/../../" . $p->getFoto();
         if (file_exists($rutaFotoPerro)) {

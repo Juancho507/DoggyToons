@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-07-2025 a las 02:32:18
+-- Tiempo de generación: 05-07-2025 a las 17:44:04
 -- Versión del servidor: 9.2.0
 -- Versión de PHP: 8.2.12
 
@@ -100,28 +100,6 @@ INSERT INTO `estadopaseo` (`idEstadoPaseo`, `Valor`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `factura`
---
-
-CREATE TABLE `factura` (
-  `idFactura` int NOT NULL,
-  `FechaEmision` datetime NOT NULL,
-  `Total` decimal(10,0) NOT NULL,
-  `Paseo_idPaseo` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
---
--- Volcado de datos para la tabla `factura`
---
-
-INSERT INTO `factura` (`idFactura`, `FechaEmision`, `Total`, `Paseo_idPaseo`) VALUES
-(1, '2025-06-12 10:00:00', 30000, 1),
-(2, '2025-06-13 11:00:00', 24000, 3),
-(3, '2025-06-13 17:00:00', 59000, 4);
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `paseador`
 --
 
@@ -131,23 +109,23 @@ CREATE TABLE `paseador` (
   `Apellido` varchar(45) NOT NULL,
   `Correo` varchar(45) NOT NULL,
   `Clave` varchar(45) NOT NULL,
-  `Contacto` int NOT NULL,
   `Activo` tinyint NOT NULL,
   `Informacion` varchar(300) NOT NULL,
   `Foto` varchar(45) DEFAULT NULL,
-  `Admin_idAdmin` int NOT NULL
+  `Admin_idAdmin` int NOT NULL,
+  `Contacto` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `paseador`
 --
 
-INSERT INTO `paseador` (`idPaseador`, `Nombre`, `Apellido`, `Correo`, `Clave`, `Contacto`, `Activo`, `Informacion`, `Foto`, `Admin_idAdmin`) VALUES
-(1, 'Mickey', 'Mouse', 'mickey@toons.com', '4d467a49990fe697121629ab9237ea3e', 300123000, 1, 'Especialista en \"Viajes Perrunos\" a parques temáticos, explorando los rincones más divertidos. Ofrece sesiones de juego con los \"Juguetes Toon\" más resistentes y siempre tiene a mano \"Alimentos Mágicos\" para un snack post-aventura. Siempre con una sonrisa.', NULL, 1021670976),
-(2, 'Bugs', 'Bunny', 'bugs@toons.com', 'dd3fe76c3f5fbced0623e596f9955c72', 300123001, 1, 'Experto en \"Expediciones Saltarinas\" por campos y senderos. Conoce los mejores escondites para buscar \"Juguetes Escondidos\" y premia el buen comportamiento con \"Alimentos Crujientes\" a base de zanahorias. Siempre listo para una nueva travesura.', NULL, 1032798548),
-(3, 'Bob', 'Esponja', 'bob@toons.com', 'f2f1d285a435bd0694da8cf3d780b670', 300123002, 1, 'Activo y listo para \"Paseos Submarinos\" imaginarios por la ciudad, buscando charcos y fuentes. Lleva consigo los \"Juguetes Burbujeantes\" más divertidos y \"Alimentos Marinos\" nutritivos para una energía inagotable. Amante de la vida marina y los paseos tranquilos.', NULL, 1021670976),
-(4, 'Popeye', 'Marino', 'popeye@toons.com', 'b1f236bdf823f5dd942b256c79d4604c', 300123003, 1, 'Fuerte y energético, organiza \"Rutas Oceánicas\" por senderos costeros y muelles. Sus \"Juguetes de Nudo\" son irrompibles y siempre carga con \"Alimentos de Espinaca\" para un impulso de vitalidad que mantiene a los perros siempre listos para la acción.', NULL, 1032798548),
-(5, 'Candace', 'Flynn', 'candace@toons.com', 'ebf4b55472e49d376a5fdf9aeaeea495', 300123004, 1, 'Paseadora \"Conspiradora\", siempre en busca de la \"Gran Aventura del Día\" que sus hermanos no puedan esconder. Equipada con \"Juguetes Innovadores\" y \"Alimentos Sorpresa\" que aparecen de la nada. ¡Va a contarles a tus padres lo divertido que es el paseo!', NULL, 1021670976);
+INSERT INTO `paseador` (`idPaseador`, `Nombre`, `Apellido`, `Correo`, `Clave`, `Activo`, `Informacion`, `Foto`, `Admin_idAdmin`, `Contacto`) VALUES
+(1, 'Mickey', 'Mouse', 'mickey@toons.com', '4d467a49990fe697121629ab9237ea3e', 1, 'Especialista en \"Viajes Perrunos\" a parques temáticos, explorando los rincones más divertidos. Ofrece sesiones de juego con los \"Juguetes Toon\" más resistentes y siempre tiene a mano \"Alimentos Mágicos\" para un snack post-aventura. Siempre con una sonrisa.', 'imagenes/1751598130.png', 1021670976, 300213985),
+(2, 'Bugs', 'Bunny', 'bugs@toons.com', 'dd3fe76c3f5fbced0623e596f9955c72', 1, 'Experto en \"Expediciones Saltarinas\" por campos y senderos. Conoce los mejores escondites para buscar \"Juguetes Escondidos\" y premia el buen comportamiento con \"Alimentos Crujientes\" a base de zanahorias. Siempre listo para una nueva travesura.', 'imagenes/1751598270.png', 1032798548, 321354985),
+(3, 'Bob', 'Esponja', 'bob@toons.com', 'f2f1d285a435bd0694da8cf3d780b670', 1, 'Activo y listo para \"Paseos Submarinos\" imaginarios por la ciudad, buscando charcos y fuentes. Lleva consigo los \"Juguetes Burbujeantes\" más divertidos y \"Alimentos Marinos\" nutritivos para una energía inagotable. Amante de la vida marina y los paseos tranquilos.', 'imagenes/1751598417.png', 1021670976, 365894156),
+(4, 'Popeye', 'Marino', 'popeye@toons.com', 'b1f236bdf823f5dd942b256c79d4604c', 1, 'Fuerte y energético, organiza \"Rutas Oceánicas\" por senderos costeros y muelles. Sus \"Juguetes de Nudo\" son irrompibles y siempre carga con \"Alimentos de Espinaca\" para un impulso de vitalidad que mantiene a los perros siempre listos para la acción.', 'imagenes/1751598474.png', 1032798548, 315316053),
+(5, 'Candace', 'Flynn', 'candace@toons.com', 'ebf4b55472e49d376a5fdf9aeaeea495', 1, 'Paseadora \"Conspiradora\", siempre en busca de la \"Gran Aventura del Día\" que sus hermanos no puedan esconder. Equipada con \"Juguetes Innovadores\" y \"Alimentos Sorpresa\" que aparecen de la nada. ¡Va a contarles a tus padres lo divertido que es el paseo!', 'imagenes/1751598511.png', 1021670976, 318326542);
 
 -- --------------------------------------------------------
 
@@ -321,34 +299,36 @@ CREATE TABLE `tarifa` (
   `idTarifa` int NOT NULL,
   `PrecioHora` decimal(10,0) NOT NULL,
   `Paseador_idPaseador` int NOT NULL,
-  `Tamaño_idTamaño` int NOT NULL
+  `Tamaño_idTamaño` int NOT NULL,
+  `FechaInicio` date NOT NULL,
+  `Activa` tinyint(1) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `tarifa`
 --
 
-INSERT INTO `tarifa` (`idTarifa`, `PrecioHora`, `Paseador_idPaseador`, `Tamaño_idTamaño`) VALUES
-(1, 16000, 2, 1),
-(2, 21000, 2, 2),
-(3, 26000, 2, 3),
-(4, 31000, 2, 4),
-(5, 14000, 3, 1),
-(6, 19000, 3, 2),
-(7, 24000, 3, 3),
-(8, 29000, 3, 4),
-(9, 17000, 4, 1),
-(10, 22000, 4, 2),
-(11, 27000, 4, 3),
-(12, 32000, 4, 4),
-(13, 15500, 5, 1),
-(14, 20500, 5, 2),
-(15, 25500, 5, 3),
-(16, 30500, 5, 4),
-(17, 15000, 1, 1),
-(18, 20000, 1, 2),
-(19, 25000, 1, 3),
-(20, 30000, 1, 4);
+INSERT INTO `tarifa` (`idTarifa`, `PrecioHora`, `Paseador_idPaseador`, `Tamaño_idTamaño`, `FechaInicio`, `Activa`) VALUES
+(1, 16000, 2, 1, '2025-07-04', 1),
+(2, 21000, 2, 2, '2025-07-04', 1),
+(3, 26000, 2, 3, '2025-07-04', 1),
+(4, 31000, 2, 4, '2025-07-04', 1),
+(5, 14000, 3, 1, '2025-07-04', 1),
+(6, 19000, 3, 2, '2025-07-04', 1),
+(7, 24000, 3, 3, '2025-07-04', 1),
+(8, 29000, 3, 4, '2025-07-04', 1),
+(9, 17000, 4, 1, '2025-07-04', 1),
+(10, 22000, 4, 2, '2025-07-04', 1),
+(11, 27000, 4, 3, '2025-07-04', 1),
+(12, 32000, 4, 4, '2025-07-04', 1),
+(13, 15500, 5, 1, '2025-07-04', 1),
+(14, 20500, 5, 2, '2025-07-04', 1),
+(15, 25500, 5, 3, '2025-07-04', 1),
+(16, 30500, 5, 4, '2025-07-04', 1),
+(17, 15000, 1, 1, '2025-07-04', 1),
+(18, 20000, 1, 2, '2025-07-04', 1),
+(19, 25000, 1, 3, '2025-07-04', 1),
+(20, 30000, 1, 4, '2025-07-04', 1);
 
 --
 -- Índices para tablas volcadas
@@ -371,13 +351,6 @@ ALTER TABLE `dueño`
 --
 ALTER TABLE `estadopaseo`
   ADD PRIMARY KEY (`idEstadoPaseo`);
-
---
--- Indices de la tabla `factura`
---
-ALTER TABLE `factura`
-  ADD PRIMARY KEY (`idFactura`),
-  ADD KEY `fk_Factura_Paseo1_idx` (`Paseo_idPaseo`);
 
 --
 -- Indices de la tabla `paseador`
@@ -439,19 +412,13 @@ ALTER TABLE `tarifa`
 -- AUTO_INCREMENT de la tabla `dueño`
 --
 ALTER TABLE `dueño`
-  MODIFY `idDueño` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+  MODIFY `idDueño` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
 
 --
 -- AUTO_INCREMENT de la tabla `estadopaseo`
 --
 ALTER TABLE `estadopaseo`
   MODIFY `idEstadoPaseo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de la tabla `factura`
---
-ALTER TABLE `factura`
-  MODIFY `idFactura` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `paseador`
@@ -463,13 +430,13 @@ ALTER TABLE `paseador`
 -- AUTO_INCREMENT de la tabla `paseo`
 --
 ALTER TABLE `paseo`
-  MODIFY `idPaseo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idPaseo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `perro`
 --
 ALTER TABLE `perro`
-  MODIFY `idPerro` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `idPerro` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT de la tabla `raza`
@@ -487,17 +454,11 @@ ALTER TABLE `tamaño`
 -- AUTO_INCREMENT de la tabla `tarifa`
 --
 ALTER TABLE `tarifa`
-  MODIFY `idTarifa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `idTarifa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `factura`
---
-ALTER TABLE `factura`
-  ADD CONSTRAINT `fk_Factura_Paseo1` FOREIGN KEY (`Paseo_idPaseo`) REFERENCES `paseo` (`idPaseo`);
 
 --
 -- Filtros para la tabla `paseador`

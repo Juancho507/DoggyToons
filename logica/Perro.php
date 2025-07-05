@@ -146,6 +146,13 @@ class Perro{
         $conexion->cerrar();
         return $listaPerros;
     }
+    public function eliminarPaseos() {
+        $conexion = new Conexion();
+        $perroDAO = new perroDAO();
+        $conexion->abrir();
+        $conexion->ejecutar($perroDAO->eliminarPaseosPorPerro($this->id));
+        $conexion->cerrar();
+    }
     
     
     }
