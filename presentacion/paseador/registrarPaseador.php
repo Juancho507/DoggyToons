@@ -14,6 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $correo = $_POST["correo"];
     $clave = $_POST["clave"];
     $contacto = $_POST["contacto"];
+    $informacion = $_POST["informacion"];
     if (isset($_FILES["foto"]) && $_FILES["foto"]["error"] === UPLOAD_ERR_OK) {
         $nombreFotoOriginal = $_FILES["foto"]["name"];
         $rutaTemporal = $_FILES["foto"]["tmp_name"];
@@ -41,13 +42,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $errorEnSubidaFoto = true;
     }
     if (!$errorEnSubidaFoto) {
-        $dueño = new Dueño("", $nombre, $apellido, $correo, $clave, $contacto, $fotoRuta);
+        $paseador = new Paseador("", $nombre, $apellido, $correo, $clave, $contacto, $fotoRuta, $informacion);
         
-        if ($dueño->correoExiste()) {
+        if ($paseador->correoExiste()) {
             $correoDuplicado = true;
         } else {
             try {
-                $dueño->registrar();
+                $paseador->registrar();
                 $exito = true;
                 $_POST = [];
             } catch (Exception $e) {
@@ -61,16 +62,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 ?>
 
-<body style="background-color: #EEE4FA; font-family: 'Segoe UI', sans-serif; min-height: 100vh; position: relative;">
+<body style="background-color:rgb(242, 231, 208); font-family: 'Segoe UI', sans-serif; min-height: 100vh; position: relative;">
   <div style="position: absolute; top: 10px; left: 100px;">
     <div class="rounded-circle overflow-hidden shadow" style="width: 110px; height: 110px;">
       <img src="img/logo.png" alt="Logo DoggyToons" style="width: 100%; height: 100%; object-fit: cover;">
     </div>
   </div>
 
+  
+
   <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6 mt-3">
-      <h2 class="text-center">Registrar nuevo dueño</h2>
+        <h2 class="text-center">Registrar nuevo paseador</h2>
       <form method="POST" enctype="multipart/form-data" autocomplete="off">
         <div class="mb-3">
           <label class="form-label">Nombre</label>
@@ -98,6 +101,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
 
         <div class="mb-3">
+          <label class="form-label">Información</label>
+          <input type="text" name="informacion" class="form-control" autocomplete="off" required>
+        </div>
+
+        <div class="mb-3">
           <label class="form-label">Foto de perfil (solo PNG)</label>
           <input type="file" name="foto" class="form-control">
         </div>
@@ -117,13 +125,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
           <div class="alert <?= $claseMensaje ?> text-center mb-3"><?= $mensaje ?></div>
         <?php endif; ?>
 
-        <button type="submit" name="registrarDueño" class="btn w-100" style="background-color: #7e57c2; color: white; border: none;">Registrar</button>
+        <button type="submit" name="registrarPaseador" class="btn w-100" style="background-color:rgba(255, 115, 0, 0.84); color: white; border: none;">Registrar</button>
       </form>
     </div>
   </div>
 
   <div class="text-center mt-3 mb-5">
-    <a href="?pid=<?php echo base64_encode('presentacion/autenticarse.php'); ?>" class="text-decoration-none" style="color:#7e57c2;">← Volver al inicio</a>
+    <a href="?pid=<?php echo base64_encode('presentacion/sesionAdministrador.php'); ?>" class="text-decoration-none" style="color:#e06b17;">← Volver al inicio</a>
   </div>
 </body>
 

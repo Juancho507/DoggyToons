@@ -51,6 +51,18 @@ class Paseador extends Persona{
         }
 
     }
+    public function registrar() {
+        $conexion = new Conexion();
+        $conexion->abrir();
+        $claveMd5 = md5($this->clave);
+        $paseadorDAO = new PaseadorDAO(
+            "", $this->nombre, $this->apellido, $this->correo, $claveMd5,
+            $this->contacto, $this->foto, $this->informacion, 1
+        );
+        $conexion->ejecutar($paseadorDAO->registrar());
+        $conexion->cerrar();
+        return $conexion->getResultado();
+    }
     public function actualizar() {
         $conexion = new Conexion();
         $conexion->abrir();
@@ -149,5 +161,15 @@ class Paseador extends Persona{
         }
         $conexion->cerrar();
     }
+    public function correoExiste() {
+    $conexion = new Conexion();
+    $paseadorDAO = new PaseadorDAO("", "", "", $this->correo);
+    $conexion->abrir();
+    $conexion->ejecutar($paseadorDAO->correoExiste());
+    $existe = $conexion->filas() > 0;
+    $conexion->cerrar();
+    return $existe;
+}
+
     
 }

@@ -26,4 +26,12 @@ public function consultar(){
             FROM admin
             WHERE idAdmin = '" . $this->id . "'";
 }
+public function actualizar(){
+    return "UPDATE admin SET
+            Nombre = '" . $this->nombre . "',
+            Apellido = '" . $this->apellido . "',
+            Correo = '" . $this->correo . "',
+            Clave = '" . $this->clave . "'
+            WHERE idAdmin = " . $this->id;
+}
 } 

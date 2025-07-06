@@ -33,6 +33,8 @@ $paginas_sin_autenticacion = array(
     );
 
 $paginas_con_autenticacion = array(
+    "presentacion/paseador/gestionarPaseadores.php",
+    "presentacion/paseador/registrarPaseador.php",
     "presentacion/sesionAdministrador.php",
     "presentacion/sesionPaseador.php",
     "presentacion/sesionDueño.php",
@@ -42,6 +44,7 @@ $paginas_con_autenticacion = array(
     "presentacion/perro/eliminarPerro.php",
     "presentacion/perro/editarPerro.php",
     "presentacion/dueño/editarDueño.php",
+    "presentacion/editarAdministrador.php",
     "presentacion/paseo/solicitarPaseo.php",
     "presentacion/dueño/eliminarDueño.php",
     "presentacion/paseador/consultarPaseadores.php",

@@ -1,3 +1,4 @@
+
 <?php
 class PaseadorDAO{
     private $id;
@@ -29,6 +30,13 @@ class PaseadorDAO{
               AND Clave = '" . md5($this->clave) . "'";
 }
 
+public function registrar() {
+        return "INSERT INTO Paseador (Nombre, Apellido, Correo, Clave, Contacto, Foto, Informacion, Activo, Admin_idAdmin)
+                VALUES (
+                    '{$this->nombre}', '{$this->apellido}', '{$this->correo}', '{$this->clave}',
+                    '{$this->contacto}', '{$this->foto}', '{$this->informacion}', 1, '{$_SESSION['id']}'
+                )";
+    }
 public function consultar(){
     return "SELECT Nombre, Apellido, Correo, Clave, Contacto, Foto, Informacion, Activo
             FROM Paseador
@@ -50,6 +58,8 @@ public function actualizar(){
             Informacion = '" . $this->informacion . "'
             WHERE idPaseador = " . $this->id;
 }
-
+public function correoExiste() {
+    return "SELECT idPaseador FROM Paseador WHERE Correo = '" . $this->correo . "'";
+}
     
 } 

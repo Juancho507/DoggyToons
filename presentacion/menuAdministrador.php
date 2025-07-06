@@ -22,6 +22,12 @@ $administrador->consultar();
         </a>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/editarAdministrador.php") ?>">
+          <i class="fa-solid fa-user-pen"></i> Editar Datos
+        </a>
+      </li>
+
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="paseadoresDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="fa-solid fa-person-walking"></i> Paseadores

@@ -34,4 +34,17 @@ class Administrador extends Persona{
         $this -> correo = $datos[2];
         $conexion->cerrar();
     }
+
+    public function actualizar() {
+        $conexion = new Conexion();
+        $conexion->abrir();
+        $administradorDAO = new AdministradorDAO(
+            $this->id,
+            $this->nombre,
+            $this->apellido,
+            $this->correo,
+            $this->clave,
+            );$conexion->ejecutar($administradorDAO->actualizar());
+        $conexion->cerrar();
+    }
 }
