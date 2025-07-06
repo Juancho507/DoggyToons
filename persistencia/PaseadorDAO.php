@@ -1,4 +1,3 @@
-
 <?php
 class PaseadorDAO{
     private $id;
@@ -47,17 +46,29 @@ public function consultarTodos() {
     return "SELECT idPaseador, Nombre, Apellido, Correo, Contacto, Foto, Informacion, Activo
             FROM Paseador"; 
 }
+public function consultarActivos() {
+    return "SELECT idPaseador, Nombre, Apellido, Correo, Contacto, Foto, Informacion, Activo
+            FROM Paseador
+            WHERE Activo = 1";
+}
+
 public function actualizar(){
     return "UPDATE Paseador SET
-            Nombre = '" . $this->nombre . "',
-            Apellido = '" . $this->apellido . "',
-            Correo = '" . $this->correo . "',
-            Clave = '" . $this->clave . "',
-           Contacto = " . $this->contacto . ",
-            Foto = '" . $this->foto . "',
-            Informacion = '" . $this->informacion . "'
-            WHERE idPaseador = " . $this->id;
+        Nombre = '" . $this->nombre . "',
+        Apellido = '" . $this->apellido . "',
+        Correo = '" . $this->correo . "',
+        Clave = '" . $this->clave . "',
+        Contacto = '" . $this->contacto . "',
+        Foto = '" . $this->foto . "',
+        Informacion = '" . $this->informacion . "'
+        WHERE idPaseador = " . $this->id;
 }
+
+public function actualizarEstado() {
+    return "UPDATE Paseador SET Activo = " . $this->activo . " WHERE idPaseador = " . $this->id;
+}
+
+
 public function correoExiste() {
     return "SELECT idPaseador FROM Paseador WHERE Correo = '" . $this->correo . "'";
 }

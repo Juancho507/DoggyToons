@@ -37,20 +37,51 @@ class Paseador extends Persona{
         session_destroy();
     }
     public function autenticarse() {
-        $conexion = new Conexion();
-        $paseadorDAO = new PaseadorDAO("","","", $this -> correo, $this -> clave);
-        $conexion -> abrir();
-        $conexion -> ejecutar($paseadorDAO -> autenticarse());
-        if($conexion -> filas() == 1){            
-            $this -> id = $conexion -> registro()[0];
+    $conexion = new Conexion();
+    $paseadorDAO = new PaseadorDAO("", "", "", $this->correo, $this->clave);
+    $conexion->abrir();
+    $conexion->ejecutar($paseadorDAO->autenticarse());
+
+    if ($conexion->filas() == 1) {
+        $this->id = $conexion->registro()[0];
+
+        // Ahora consultamos los datos completos, incluyendo "Activo"
+        $conexion->ejecutar((new PaseadorDAO($this->id))->consultar());
+        $datos = $conexion->registro();
+        $this->activo = $datos[7]; // Activo está en la posición 7
+
+        if ($this->activo != 1) {
             $conexion->cerrar();
-            return true;
-        }else{
-            $conexion->cerrar();
-            return false;
+            return false; // No permitir login si está inactivo
         }
 
+        $conexion->cerrar();
+        return true;
     }
+
+    $conexion->cerrar();
+    return false;
+}
+public function consultarActivos() {
+    $conexion = new Conexion();
+    $conexion->abrir();
+    $paseadorDAO = new PaseadorDAO();
+    $conexion->ejecutar($paseadorDAO->consultarActivos());
+
+    $paseadores = [];
+    while ($registro = $conexion->registro()) {
+        $temp = new Paseador(
+            $registro[0], $registro[1], $registro[2], $registro[3],
+            "", $registro[4], $registro[5], $registro[6], $registro[7]
+        );
+        $temp->consultarTarifas();
+        $paseadores[] = $temp;
+    }
+
+    $conexion->cerrar();
+    return $paseadores;
+}
+
     public function registrar() {
         $conexion = new Conexion();
         $conexion->abrir();
@@ -78,6 +109,14 @@ class Paseador extends Persona{
             );$conexion->ejecutar($paseadorDAO->actualizar());
         $conexion->cerrar();
     }
+    public function actualizarEstado() {
+    $conexion = new Conexion();
+    $conexion->abrir();
+    $paseadorDAO = new PaseadorDAO($this->id, "", "", "", "", "", "", "", $this->activo);
+    $conexion->ejecutar($paseadorDAO->actualizarEstado());
+    $conexion->cerrar();
+}
+
     public function consultar(){
         $conexion = new Conexion();
         $paseadorDAO = new PaseadorDAO($this->id);

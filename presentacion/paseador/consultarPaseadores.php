@@ -7,15 +7,15 @@ $rol = $_SESSION["rol"];
 include("presentacion/encabezadoD.php"); 
 include("presentacion/menu" . ucfirst($rol) . ".php"); 
 $paseador = new Paseador();
-$listaPaseadores = $paseador->consultarTodos(); 
+$lista = $paseador->consultarActivos(); 
 ?>
 
 <div class="container mt-4">
     <h3 class="text-center">Paseadores Disponibles</h3>
     <div class="row">
         <?php
-        foreach ($listaPaseadores as $p) {
-            ?>
+        foreach ($lista as $p) {
+        ?>
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow-sm">
                     <?php
@@ -38,8 +38,7 @@ $listaPaseadores = $paseador->consultarTodos();
                          <?php
                         $tarifas = $p->getTarifas();
                         if (!empty($tarifas)) {
-                            echo "<p><strong>Tarifas por hora:</strong></p>";
-                            echo "<ul>";
+                            echo "<p><strong>Tarifas por hora:</strong></p><ul>";
                             foreach ($tarifas as $tarifa) {
                                 echo "<li>" . htmlspecialchars($tarifa->getNombreTamaño()) . ": $" . htmlspecialchars(number_format($tarifa->getPrecioHora(), 2, ',', '.')) . "</li>";
                             }
@@ -51,14 +50,11 @@ $listaPaseadores = $paseador->consultarTodos();
                     </div>
                 </div>
             </div>
-            <?php
+        <?php
         }
         ?>
     </div>
 </div>
-
-</body>
-</html>
 
 </body>
 </html>
