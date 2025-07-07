@@ -18,6 +18,32 @@ class Tamaño{
         $this -> id = $id;
         $this -> tipo = $tipo;
     }
+    public function consultar() {
+        $conexion = new Conexion();
+        $tamañoDAO = new TamañoDAO($this->id, $this->tipo);
+        $conexion->abrir();
+        $conexion->ejecutar($tamañoDAO->consultar());
+        if (($fila = $conexion->registro()) != null) {
+            $this->tipo = $fila[0];
+            $conexion->cerrar();
+            return true;
+        }
+        $conexion->cerrar();
+        return false;
+    }
+    public function consultarTodos() {
+        $conexion = new Conexion();
+        $tamañoDAO = new TamañoDAO();
+        
+        $conexion->abrir();
+        $conexion->ejecutar($tamañoDAO->consultarTodos());
+        $resultados = [];
+        while (($fila = $conexion->registro()) != null) {
+            $tamaño = new Tamaño($fila[0], $fila[1]);
+            $resultados[] = $tamaño;
+        }
+        $conexion->cerrar();
+        return $resultados;
+    }
 }
-
 ?>

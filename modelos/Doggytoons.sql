@@ -2,9 +2,9 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 07-07-2025 a las 02:46:31
--- Versión del servidor: 10.4.32-MariaDB
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 07-07-2025 a las 03:46:16
+-- Versión del servidor: 9.2.0
 -- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -28,12 +28,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
-  `idAdmin` int(11) NOT NULL,
+  `idAdmin` int NOT NULL,
   `Nombre` varchar(45) NOT NULL,
   `Apellido` varchar(45) NOT NULL,
   `Correo` varchar(45) NOT NULL,
   `Clave` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `admin`
@@ -50,14 +50,14 @@ INSERT INTO `admin` (`idAdmin`, `Nombre`, `Apellido`, `Correo`, `Clave`) VALUES
 --
 
 CREATE TABLE `dueño` (
-  `idDueño` int(11) NOT NULL,
+  `idDueño` int NOT NULL,
   `Nombre` varchar(45) NOT NULL,
   `Apellido` varchar(45) NOT NULL,
   `Correo` varchar(45) NOT NULL,
   `Clave` varchar(45) NOT NULL,
-  `Contacto` int(11) NOT NULL,
+  `Contacto` int NOT NULL,
   `Foto` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `dueño`
@@ -82,9 +82,9 @@ INSERT INTO `dueño` (`idDueño`, `Nombre`, `Apellido`, `Correo`, `Clave`, `Cont
 --
 
 CREATE TABLE `estadopaseo` (
-  `idEstadoPaseo` int(11) NOT NULL,
+  `idEstadoPaseo` int NOT NULL,
   `Valor` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `estadopaseo`
@@ -104,17 +104,17 @@ INSERT INTO `estadopaseo` (`idEstadoPaseo`, `Valor`) VALUES
 --
 
 CREATE TABLE `paseador` (
-  `idPaseador` int(11) NOT NULL,
+  `idPaseador` int NOT NULL,
   `Nombre` varchar(45) NOT NULL,
   `Apellido` varchar(45) NOT NULL,
   `Correo` varchar(45) NOT NULL,
   `Clave` varchar(45) NOT NULL,
-  `Activo` tinyint(4) NOT NULL,
-  `Informacion` varchar(300) NOT NULL,
+  `Activo` tinyint NOT NULL,
+  `Informacion` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `Foto` varchar(45) DEFAULT NULL,
-  `Admin_idAdmin` int(11) NOT NULL,
-  `Contacto` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `Admin_idAdmin` int NOT NULL,
+  `Contacto` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `paseador`
@@ -126,8 +126,8 @@ INSERT INTO `paseador` (`idPaseador`, `Nombre`, `Apellido`, `Correo`, `Clave`, `
 (3, 'Bob', 'Esponja', 'bob@toons.com', 'f2f1d285a435bd0694da8cf3d780b670', 1, 'Activo y listo para \"Paseos Submarinos\" imaginarios por la ciudad, buscando charcos y fuentes. Lleva consigo los \"Juguetes Burbujeantes\" más divertidos y \"Alimentos Marinos\" nutritivos para una energía inagotable. Amante de la vida marina y los paseos tranquilos.', 'imagenes/1751598417.png', 1021670976, 365894156),
 (4, 'Popeye', 'Marino', 'popeye@toons.com', 'b1f236bdf823f5dd942b256c79d4604c', 1, 'Fuerte y energético, organiza \"Rutas Oceánicas\" por senderos costeros y muelles. Sus \"Juguetes de Nudo\" son irrompibles y siempre carga con \"Alimentos de Espinaca\" para un impulso de vitalidad que mantiene a los perros siempre listos para la acción.', 'imagenes/1751598474.png', 1032798548, 315316053),
 (5, 'Candace', 'Flynn', 'candace@toons.com', 'ebf4b55472e49d376a5fdf9aeaeea495', 1, 'Paseadora \"Conspiradora\", siempre en busca de la \"Gran Aventura del Día\" que sus hermanos no puedan esconder. Equipada con \"Juguetes Innovadores\" y \"Alimentos Sorpresa\" que aparecen de la nada. ¡Va a contarles a tus padres lo divertido que es el paseo!', 'imagenes/1751598511.png', 1021670976, 318326542),
-(7, 'Kim', 'Possible', 'kim@gmail.com', '98467a817e2ff8c8377c1bf085da7138', 1, 'Una paseadora audaz y brillante.', '', 1021670976, 2147483647),
-(8, 'Edward', 'Horace', 'ed@gmail.com', 'd2c9694bdad14eaabbed8b425f994fce', 1, 'Rápido y genial paseador', 'imagenes/1751777331.png', 1021670976, 23456789);
+(7, 'Kim', 'Possible', 'kim@gmail.com', '98467a817e2ff8c8377c1bf085da7138', 1, 'Kim Possible, la heroína que salva el mundo, ¡también es una experta paseadora de perritos! Con ella, cada salida es una misión llena de diversión.\r\n\r\nSiempre lista para la acción, Kim lleva a tus peludos a parques y senderos secretos, garantizando exploraciones llenas de emoción. Su kit de gadgets perrunos incluye desde correas de alta tecnología hasta juguetes interactivos y montones de premios saludables.\r\n\r\nCon Kim, tu cachorro no solo pasea, ¡vive una aventura!', 'imagenes/1751850474.png', 1021670976, 2147483647),
+(8, 'Edward', 'Horace', 'ed@gmail.com', 'd2c9694bdad14eaabbed8b425f994fce', 1, 'Ed, el gigante bonachón de Peach Creek, ¡es el paseador de perritos más entusiasta que conocerás! Su amor por la mantequilla de maní solo es superado por su pasión por los caninos.\r\n\r\nCada paseo con Ed es una aventura impredecible llena de energía. Con él, los perritos explorarán cada rincón, olfatearán cada arbusto y quizás hasta intenten atrapar ardillas voladoras (si Ed las imagina). Siempre lleva consigo su mochila mágica, llena de juguetes variados, golosinas (¡y seguro que alguna tostada!).\r\n\r\nCon Ed, la diversión está garantizada, ¡aunque a veces sea un poco caótica!', 'imagenes/1751850727.png', 1021670976, 23456789);
 
 -- --------------------------------------------------------
 
@@ -136,12 +136,12 @@ INSERT INTO `paseador` (`idPaseador`, `Nombre`, `Apellido`, `Correo`, `Clave`, `
 --
 
 CREATE TABLE `paseo` (
-  `idPaseo` int(11) NOT NULL,
+  `idPaseo` int NOT NULL,
   `FechaInicio` datetime NOT NULL,
   `FechaFin` datetime NOT NULL,
-  `Paseador_idPaseador` int(11) NOT NULL,
-  `EstadoPaseo_idEstadoPaseo` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `Paseador_idPaseador` int NOT NULL,
+  `EstadoPaseo_idEstadoPaseo` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `paseo`
@@ -166,9 +166,9 @@ INSERT INTO `paseo` (`idPaseo`, `FechaInicio`, `FechaFin`, `Paseador_idPaseador`
 --
 
 CREATE TABLE `paseoperro` (
-  `Paseo_idPaseo` int(11) NOT NULL,
-  `Perro_idPerro` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `Paseo_idPaseo` int NOT NULL,
+  `Perro_idPerro` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `paseoperro`
@@ -199,12 +199,12 @@ INSERT INTO `paseoperro` (`Paseo_idPaseo`, `Perro_idPerro`) VALUES
 --
 
 CREATE TABLE `perro` (
-  `idPerro` int(11) NOT NULL,
+  `idPerro` int NOT NULL,
   `Nombre` varchar(45) NOT NULL,
   `Foto` varchar(45) DEFAULT NULL,
-  `Raza_idRaza` int(11) NOT NULL,
-  `Dueño_idDueño` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `Raza_idRaza` int NOT NULL,
+  `Dueño_idDueño` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `perro`
@@ -243,10 +243,10 @@ INSERT INTO `perro` (`idPerro`, `Nombre`, `Foto`, `Raza_idRaza`, `Dueño_idDueñ
 --
 
 CREATE TABLE `raza` (
-  `idRaza` int(11) NOT NULL,
+  `idRaza` int NOT NULL,
   `Nombre` varchar(45) NOT NULL,
-  `Tamaño_idTamaño` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `Tamaño_idTamaño` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `raza`
@@ -277,9 +277,9 @@ INSERT INTO `raza` (`idRaza`, `Nombre`, `Tamaño_idTamaño`) VALUES
 --
 
 CREATE TABLE `tamaño` (
-  `idTamaño` int(11) NOT NULL,
+  `idTamaño` int NOT NULL,
   `Tipo` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `tamaño`
@@ -298,13 +298,13 @@ INSERT INTO `tamaño` (`idTamaño`, `Tipo`) VALUES
 --
 
 CREATE TABLE `tarifa` (
-  `idTarifa` int(11) NOT NULL,
+  `idTarifa` int NOT NULL,
   `PrecioHora` decimal(10,0) NOT NULL,
-  `Paseador_idPaseador` int(11) NOT NULL,
-  `Tamaño_idTamaño` int(11) NOT NULL,
+  `Paseador_idPaseador` int NOT NULL,
+  `Tamaño_idTamaño` int NOT NULL,
   `FechaInicio` date NOT NULL,
-  `Activa` tinyint(1) DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `Activa` tinyint(1) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `tarifa`
@@ -330,9 +330,15 @@ INSERT INTO `tarifa` (`idTarifa`, `PrecioHora`, `Paseador_idPaseador`, `Tamaño_
 (17, 15000, 1, 1, '2025-07-04', 1),
 (18, 20000, 1, 2, '2025-07-04', 1),
 (19, 25000, 1, 3, '2025-07-04', 1),
-(20, 30000, 1, 4, '2025-07-04', 0),
-(25, 27000, 1, 4, '2025-07-06', 0),
-(26, 30000, 1, 4, '2025-07-06', 1);
+(26, 30000, 1, 4, '2025-07-06', 1),
+(28, 15500, 8, 1, '2025-07-06', 1),
+(29, 18000, 8, 2, '2025-07-06', 1),
+(30, 23000, 8, 3, '2025-07-06', 1),
+(31, 29800, 8, 4, '2025-07-06', 1),
+(32, 16000, 7, 1, '2025-07-06', 1),
+(33, 20000, 7, 2, '2025-07-06', 1),
+(34, 26000, 7, 3, '2025-07-06', 1),
+(35, 31000, 7, 4, '2025-07-06', 1);
 
 --
 -- Índices para tablas volcadas
@@ -416,49 +422,49 @@ ALTER TABLE `tarifa`
 -- AUTO_INCREMENT de la tabla `dueño`
 --
 ALTER TABLE `dueño`
-  MODIFY `idDueño` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
+  MODIFY `idDueño` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
 
 --
 -- AUTO_INCREMENT de la tabla `estadopaseo`
 --
 ALTER TABLE `estadopaseo`
-  MODIFY `idEstadoPaseo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idEstadoPaseo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `paseador`
 --
 ALTER TABLE `paseador`
-  MODIFY `idPaseador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idPaseador` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `paseo`
 --
 ALTER TABLE `paseo`
-  MODIFY `idPaseo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `idPaseo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `perro`
 --
 ALTER TABLE `perro`
-  MODIFY `idPerro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `idPerro` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT de la tabla `raza`
 --
 ALTER TABLE `raza`
-  MODIFY `idRaza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idRaza` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `tamaño`
 --
 ALTER TABLE `tamaño`
-  MODIFY `idTamaño` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idTamaño` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `tarifa`
 --
 ALTER TABLE `tarifa`
-  MODIFY `idTarifa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `idTarifa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- Restricciones para tablas volcadas
