@@ -38,20 +38,25 @@ $paseador->consultar();
           <i class="fa-solid fa-calendar-check"></i> Paseos Pendientes
         </a>
       </li>
-
+      <li class="nav-item">
+        <a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/estadisticas.php"); ?>">
+          <i class="fa-solid fa-chart-line"></i> Estadísticas
+        </a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/paseador/misPaseos.php"); ?>">
           <i class="fa-solid fa-list"></i> Mis Paseos
         </a>
       </li>
     </ul>
-
+  
     <ul class="navbar-nav mb-2 mb-lg-0">
       <li class="nav-item">
         <span class="navbar-text text-white me-3">
           <?php echo $paseador->getNombre() . " " . $paseador->getApellido(); ?>
         </span>
       </li>
+     
       <li class="nav-item">
        <a class="nav-link text-danger" href="?pid=<?php echo base64_encode("presentacion/autenticarse.php") ?>&sesion=false">
           <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión

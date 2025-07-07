@@ -56,8 +56,11 @@ $dueño->consultar();
     <li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/paseo/verFacturas.php") ?>">Facturas</a></li>
   </ul>
 </li>
-
-
+<li class="nav-item">
+        <a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/estadisticas.php"); ?>">
+          <i class="fa-solid fa-chart-line"></i> Estadísticas
+        </a>
+      </li>
 
     </ul>
 

@@ -9,7 +9,12 @@ $lista = $paseador->consultarTodos();
 <div class="container mt-5">
   <h2 class="mb-4 text-center">Gestionar Paseadores</h2>
 
-  <table class="table table-striped table-hover">
+  <!-- 🔍 Filtro de búsqueda -->
+  <div class="mb-3">
+    <input type="text" id="filtroPaseador" class="form-control" placeholder="Buscar por nombre, correo o contacto...">
+  </div>
+
+  <table class="table table-striped table-hover" id="tablaPaseadores">
     <thead class="table-dark">
       <tr>
         <th>Nombre</th>
@@ -22,9 +27,9 @@ $lista = $paseador->consultarTodos();
     <tbody>
       <?php foreach ($lista as $p): ?>
         <tr>
-          <td><?= $p->getNombre() . " " . $p->getApellido(); ?></td>
-          <td><?= $p->getCorreo(); ?></td>
-          <td><?= $p->getContacto(); ?></td>
+          <td><?= htmlspecialchars($p->getNombre() . " " . $p->getApellido()) ?></td>
+          <td><?= htmlspecialchars($p->getCorreo()) ?></td>
+          <td><?= htmlspecialchars($p->getContacto()) ?></td>
           <td>
             <span class="badge bg-<?= $p->getActivo() == 1 ? 'success' : 'danger'; ?>" id="estado-<?= $p->getId(); ?>">
               <?= $p->getActivo() == 1 ? 'Activo' : 'Inactivo'; ?>
@@ -45,8 +50,11 @@ $lista = $paseador->consultarTodos();
   <div id="respuestaAjax" class="mt-3"></div>
 </div>
 
+<!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
+// AJAX para cambiar estado
 $(".toggle-estado").click(function() {
   const btn = $(this);
   const id = btn.data("id");
@@ -72,12 +80,20 @@ $(".toggle-estado").click(function() {
 
         $("#respuestaAjax").html(`<div class="alert alert-success">✅ Estado actualizado correctamente.</div>`);
       } else {
-        $("#respuestaAjax").html(`<div class="alert alert-danger">❌ ${response}</div>`);
+        $("#respuestaAjax").html(`<div class="alert alert-danger">❌ Error al actualizar el estado.</div>`);
       }
     },
     error: function() {
       $("#respuestaAjax").html(`<div class="alert alert-danger">⚠️ Error de comunicación con el servidor.</div>`);
     }
+  });
+});
+
+// 🔍 Filtro de búsqueda en tiempo real
+$("#filtroPaseador").on("keyup", function() {
+  const valor = $(this).val().toLowerCase();
+  $("#tablaPaseadores tbody tr").filter(function() {
+    $(this).toggle($(this).text().toLowerCase().includes(valor));
   });
 });
 </script>
