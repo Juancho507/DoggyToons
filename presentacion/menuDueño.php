@@ -57,7 +57,7 @@ $dueño->consultar();
   </ul>
 </li>
 <li class="nav-item">
-        <a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/estadisticas.php"); ?>">
+        <a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/dueño/graficaPrecios.php"); ?>">
           <i class="fa-solid fa-chart-line"></i> Estadísticas
         </a>
       </li>

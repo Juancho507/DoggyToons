@@ -23,6 +23,7 @@ require ("logica/Tarifa.php");
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <link href="https://use.fontawesome.com/releases/v5.11.1/css/all.css" rel="stylesheet" />
 <script src="https://kit.fontawesome.com/14596e32cc.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <link rel="shortcut icon" href="img/Logo.png" type="image/x-icon">
 </head>
 
@@ -33,7 +34,10 @@ $paginas_sin_autenticacion = array(
     );
 
 $paginas_con_autenticacion = array(
+    "presentacion/estadisticas.php",
     "presentacion/paseador/gestionarPaseadores.php",
+    "presentacion/paseador/graficaTamaños.php",
+    "presentacion/dueño/graficaPrecios.php",
     "presentacion/paseador/registrarPaseador.php",
     "presentacion/sesionAdministrador.php",
     "presentacion/sesionPaseador.php",
