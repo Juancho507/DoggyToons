@@ -43,9 +43,9 @@ public function consultar(){
 }
 
 public function consultarTodos() {
-    return "SELECT idPaseador, Nombre, Apellido, Correo, Contacto, Foto, Informacion, Activo
-            FROM Paseador"; 
+    return "SELECT idPaseador, nombre, apellido, correo, contacto, activo FROM Paseador";
 }
+
 public function consultarActivos() {
     return "SELECT idPaseador, Nombre, Apellido, Correo, Contacto, Foto, Informacion, Activo
             FROM Paseador

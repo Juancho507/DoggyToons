@@ -150,33 +150,32 @@ public function consultarActivos() {
         
         $conexion->cerrar();
     }
-    public function consultarTodos() {
-        $conexion = new Conexion();
-        $conexion->abrir();
-        $paseadorDAO = new PaseadorDAO();
-        $conexion->ejecutar($paseadorDAO->consultarTodos());
-        
-        $paseadores = [];
-        while ($registro = $conexion->registro()) {
-        
-            $tempPaseador = new Paseador( 
-                $registro[0],
-                $registro[1],
-                $registro[2],
-                $registro[3],
-                "",
-                $registro[4],
-                $registro[5],
-                $registro[6],
-                $registro[7]
-                );
-            $tempPaseador->consultarTarifas();
-            $paseadores[] = $tempPaseador; 
-        }
-        
-        $conexion->cerrar();
-        return $paseadores;
+     public function consultarTodos() {
+    $conexion = new Conexion();
+    $paseadorDAO = new PaseadorDAO();
+
+    $conexion->abrir();
+    $conexion->ejecutar($paseadorDAO->consultarTodos());
+
+    $resultado = [];
+    while (($registro = $conexion->registro())) {
+        $resultado[] = new Paseador(
+            $registro[0], // id
+            $registro[1], // nombre
+            $registro[2], // apellido
+            $registro[3], // correo
+            "",           // clave
+            $registro[4], // contacto
+            "",           // foto
+            "",           // info
+            $registro[5]  // activo
+        );
     }
+
+    $conexion->cerrar();
+    return $resultado;
+}
+
     public function consultarTarifas() {
         
         $conexion = new Conexion();
