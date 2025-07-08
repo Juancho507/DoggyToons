@@ -36,7 +36,7 @@ if (!empty($paseos)) {
 
 if ($nombrePerro == "") {
     $pdf->SetFont("Arial", "B", 14);
-    $pdf->Cell(0, 10, "Perrito: [ID Perro " . $idPerro . "]", 0, 1, "L"); 
+    $pdf->Cell(0, 10, "Perrito: " . $nombrePerro, 0, 1, "L"); 
     $pdf->Ln(4);
     $pdf->SetFont("Arial", "B", 12);
     $pdf->SetFillColor(230, 230, 250);
@@ -48,10 +48,10 @@ if ($nombrePerro == "") {
     $pdf->Cell(30, 10, "Precio", 1, 1, 'C', true);
     $pdf->SetFont("Arial", "I", 12);
     $pdf->Ln(10);
-    $pdf->Cell(0, 10, "Este perrito aún no tiene paseos completados para facturar.", 0, 1, "C");
+    $pdf->Cell(0, 10, "Este perrito aun no tiene paseos completados para facturar.", 0, 1, "C");
 } else {
     $pdf->SetFont("Arial", "B", 14);
-    $pdf->Cell(0, 10, "Perrito: " . $nombrePerro, 0, 1, "L"); //
+    $pdf->Cell(0, 10, "Perrito: " . $nombrePerro, 0, 1, "L"); 
     $pdf->Ln(4);
     $pdf->SetFont("Arial", "B", 12);
     $pdf->SetFillColor(230, 230, 250);
