@@ -238,7 +238,7 @@ public function buscarHistorial($rol, $idUsuario, $palabras) {
         return $resultados;
     }
     public function actualizarEstado($nuevoEstado) {
-    if ($nuevoEstado == 2) { // Si se intenta aceptar
+    if ($nuevoEstado == 2) {
         if (!$this->puedeAceptarPaseo()) {
             return false;
         }
@@ -277,8 +277,6 @@ public function puedeAceptarPaseo() {
     $conexion->abrir();
 
     $paseoDAO = new PaseoDAO($this->id);
-    
-    // Obtener la fecha y el paseador del paseo
     $conexion->ejecutar("SELECT FechaInicio, Paseador_idPaseador FROM Paseo WHERE idPaseo = $this->id");
     $registro = $conexion->registro();
     
@@ -289,8 +287,6 @@ public function puedeAceptarPaseo() {
 
     $fechaInicio = $registro[0];
     $idPaseador = $registro[1];
-
-    // Consulta los paseos aceptados en el mismo rango de 1 hora
     $conexion->ejecutar($paseoDAO->contarAceptadosEnRango($idPaseador, $fechaInicio));
     $resultado = $conexion->registro();
     $conexion->cerrar();

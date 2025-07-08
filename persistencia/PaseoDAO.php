@@ -210,6 +210,7 @@ public function contarAceptadosEnRango($idPaseador, $fechaInicio) {
         INNER JOIN Tarifa t ON t.Paseador_idPaseador = pa.idPaseador AND t.Tamaño_idTamaño = tam.idTamaño
         WHERE ep.Valor = 'Completado' AND per.idPerro = $idPerro
         ORDER BY p.FechaInicio DESC
+        LIMIT 1
     ";
     }
     
