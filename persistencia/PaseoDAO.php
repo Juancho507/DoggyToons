@@ -24,41 +24,51 @@ class PaseoDAO {
                 VALUES (" . $idPaseo . ", " . $idPerro . ")";
     }
     public function consultarPaseosPorDueño($idDueño) {
-        return "SELECT
+    return "SELECT
         p.idPaseo,
         p.FechaInicio,
         p.FechaFin,
-        pas.Nombre,
+        CONCAT(pas.Nombre, ' ', pas.Apellido) AS paseador,
         ep.Valor,
         per.Nombre,
-        per.idPerro
+        per.idPerro,
+        t.PrecioHora
     FROM Paseo p
     INNER JOIN Paseador pas ON p.Paseador_idPaseador = pas.idPaseador
     INNER JOIN EstadoPaseo ep ON p.EstadoPaseo_idEstadoPaseo = ep.idEstadoPaseo
     INNER JOIN PaseoPerro pp ON p.idPaseo = pp.Paseo_idPaseo
     INNER JOIN Perro per ON pp.Perro_idPerro = per.idPerro
+    INNER JOIN Raza r ON per.Raza_idRaza = r.idRaza
+    INNER JOIN Tamaño tam ON r.Tamaño_idTamaño = tam.idTamaño
+    INNER JOIN Tarifa t ON t.Paseador_idPaseador = pas.idPaseador AND t.Tamaño_idTamaño = tam.idTamaño
     WHERE per.Dueño_idDueño = $idDueño
     ORDER BY p.FechaInicio DESC";
-    }
+}
+
     public function consultarPaseosPorPaseador($idPaseador) {
-        return "SELECT
-            p.idPaseo,
-            p.FechaInicio,
-            p.FechaFin,
-            CONCAT(pas.Nombre, ' ', pas.Apellido) AS paseador,
-            ep.Valor AS EstadoPaseoValor,
-            per.Nombre AS nombre_perro,
-            per.idPerro 
-        FROM Paseo p
-        INNER JOIN Paseador pas ON p.Paseador_idPaseador = pas.idPaseador
-        INNER JOIN EstadoPaseo ep ON p.EstadoPaseo_idEstadoPaseo = ep.idEstadoPaseo
-        INNER JOIN PaseoPerro pp ON p.idPaseo = pp.Paseo_idPaseo
-        INNER JOIN Perro per ON pp.Perro_idPerro = per.idPerro
-        WHERE p.Paseador_idPaseador = $idPaseador
-        -- ELIMINAR EL GROUP BY, AHORA QUEREMOS UNA FILA POR CADA PERRO
-        ORDER BY p.FechaInicio DESC";
-    }
-    
+    return "SELECT
+        p.idPaseo,
+        p.FechaInicio,
+        p.FechaFin,
+        CONCAT(due.Nombre, ' ', due.Apellido) AS dueño,
+        ep.Valor,
+        per.Nombre,
+        per.idPerro,
+        t.PrecioHora
+    FROM Paseo p
+    INNER JOIN EstadoPaseo ep ON p.EstadoPaseo_idEstadoPaseo = ep.idEstadoPaseo
+    INNER JOIN Paseador pas ON p.Paseador_idPaseador = pas.idPaseador
+    INNER JOIN PaseoPerro pp ON p.idPaseo = pp.Paseo_idPaseo
+    INNER JOIN Perro per ON pp.Perro_idPerro = per.idPerro
+    INNER JOIN Dueño due ON per.Dueño_idDueño = due.idDueño
+    INNER JOIN Raza r ON per.Raza_idRaza = r.idRaza
+    INNER JOIN Tamaño tam ON r.Tamaño_idTamaño = tam.idTamaño
+    INNER JOIN Tarifa t ON t.Paseador_idPaseador = pas.idPaseador AND t.Tamaño_idTamaño = tam.idTamaño
+    WHERE p.Paseador_idPaseador = $idPaseador
+    ORDER BY p.FechaInicio DESC";
+}
+
+
     
     public function consultarTodosLosPaseos() {
         return "SELECT
@@ -94,24 +104,34 @@ class PaseoDAO {
             WHERE idPaseo = $this->id";
     }
     
-    public function consultarPendientesPorPaseador($idPaseador) {
-        return "
-    SELECT
-        p.idPaseo,
-        p.FechaInicio,
-        p.FechaFin,
-        GROUP_CONCAT(per.Nombre SEPARATOR ', ') AS nombres_perros,
-        ep.Valor AS EstadoPaseo
-    FROM Paseo p
-    JOIN PaseoPerro pp ON p.idPaseo = pp.Paseo_idPaseo
-    JOIN Perro per ON pp.Perro_idPerro = per.idPerro
-    JOIN EstadoPaseo ep ON p.EstadoPaseo_idEstadoPaseo = ep.idEstadoPaseo
-    WHERE p.Paseador_idPaseador = $idPaseador
-      AND p.EstadoPaseo_idEstadoPaseo = 1 -- 1 = Pendiente
-    GROUP BY p.idPaseo, p.FechaInicio, p.FechaFin
-    ORDER BY p.FechaInicio DESC
+   public function consultarPendientesPorPaseador($idPaseador) {
+    return "
+        SELECT
+            p.idPaseo,
+            p.FechaInicio,
+            p.FechaFin,
+            GROUP_CONCAT(per.Nombre SEPARATOR ', ') AS nombres_perros,
+            ep.Valor AS EstadoPaseo
+        FROM Paseo p
+        JOIN PaseoPerro pp ON p.idPaseo = pp.Paseo_idPaseo
+        JOIN Perro per ON pp.Perro_idPerro = per.idPerro
+        JOIN EstadoPaseo ep ON p.EstadoPaseo_idEstadoPaseo = ep.idEstadoPaseo
+        WHERE p.Paseador_idPaseador = $idPaseador
+          AND p.EstadoPaseo_idEstadoPaseo = 1
+        GROUP BY p.idPaseo
+        ORDER BY p.FechaInicio DESC
     ";
-    }
+}
+public function contarAceptadosEnRango($idPaseador, $fechaInicio) {
+    return "
+        SELECT COUNT(*) 
+        FROM Paseo 
+        WHERE Paseador_idPaseador = $idPaseador
+          AND EstadoPaseo_idEstadoPaseo = 2 -- Aceptado
+          AND TIMESTAMPDIFF(MINUTE, '$fechaInicio', FechaInicio) BETWEEN -59 AND 59
+    ";
+}
+
     public function consultarPaseosCompletadosPorPerro($idPerro) {
         return "
         SELECT

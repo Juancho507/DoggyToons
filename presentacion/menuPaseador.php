@@ -44,7 +44,7 @@ $paseador->consultar();
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/paseador/misPaseos.php"); ?>">
+        <a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/paseo/historialPaseosp.php"); ?>">
           <i class="fa-solid fa-list"></i> Mis Paseos
         </a>
       </li>
