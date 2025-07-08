@@ -9,15 +9,12 @@ $lista = $paseador->consultarTodos();
 <div class="container mt-5">
   <h2 class="mb-4 text-center">Gestionar Paseadores</h2>
 
-<<<<<<< HEAD
-  <!-- 🔍 Filtro de búsqueda -->
-=======
   <!-- Filtro -->
->>>>>>> 4751c00 (Filtros)
   <div class="mb-3">
     <input type="text" id="filtroPaseador" class="form-control" placeholder="Buscar por nombre, correo o contacto...">
   </div>
 
+  <!-- Tabla -->
   <table class="table table-striped table-hover" id="tablaPaseadores">
     <thead class="table-dark">
       <tr>
@@ -31,15 +28,9 @@ $lista = $paseador->consultarTodos();
     <tbody>
       <?php foreach ($lista as $p): ?>
         <tr>
-<<<<<<< HEAD
-          <td><?= htmlspecialchars($p->getNombre() . " " . $p->getApellido()) ?></td>
-          <td><?= htmlspecialchars($p->getCorreo()) ?></td>
-          <td><?= htmlspecialchars($p->getContacto()) ?></td>
-=======
           <td class="nombre"><?= htmlspecialchars($p->getNombre() . " " . $p->getApellido()) ?></td>
           <td class="correo"><?= htmlspecialchars($p->getCorreo()) ?></td>
           <td class="contacto"><?= htmlspecialchars($p->getContacto()) ?></td>
->>>>>>> 4751c00 (Filtros)
           <td>
             <span class="badge bg-<?= $p->getActivo() == 1 ? 'success' : 'danger'; ?>" id="estado-<?= $p->getId(); ?>">
               <?= $p->getActivo() == 1 ? 'Activo' : 'Inactivo'; ?>
@@ -59,15 +50,8 @@ $lista = $paseador->consultarTodos();
 
   <div id="respuestaAjax" class="mt-3"></div>
 </div>
-<<<<<<< HEAD
 
 <!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script>
-// AJAX para cambiar estado
-$(".toggle-estado").click(function() {
-=======
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
@@ -105,9 +89,7 @@ function aplicarFiltro() {
   });
 }
 
-// 🔄 AJAX para cambiar estado
 $(document).on("click", ".toggle-estado", function () {
->>>>>>> 4751c00 (Filtros)
   const btn = $(this);
   const id = btn.data("id");
   const estadoActual = btn.data("estado");
@@ -119,19 +101,12 @@ $(document).on("click", ".toggle-estado", function () {
     data: { idPaseador: id, estado: nuevoEstado },
     success: function (response) {
       if (response.trim() === "ok") {
-<<<<<<< HEAD
-        const estadoSpan = $("#estado-" + id);
-        estadoSpan.text(nuevoEstado == 1 ? "Activo" : "Inactivo")
-                  .removeClass("bg-success bg-danger")
-                  .addClass(nuevoEstado == 1 ? "bg-success" : "bg-danger");
-=======
         const fila = btn.closest("tr");
         const estadoSpan = fila.find("span[id^='estado-']");
 
         estadoSpan.text(nuevoEstado == 1 ? "Activo" : "Inactivo")
           .removeClass("bg-success bg-danger")
           .addClass(nuevoEstado == 1 ? "bg-success" : "bg-danger");
->>>>>>> 4751c00 (Filtros)
 
         btn.text(nuevoEstado == 1 ? "Deshabilitar" : "Habilitar")
           .removeClass("btn-success btn-danger")
@@ -139,42 +114,21 @@ $(document).on("click", ".toggle-estado", function () {
 
         btn.data("estado", nuevoEstado);
 
-<<<<<<< HEAD
-        $("#respuestaAjax").html(`<div class="alert alert-success">✅ Estado actualizado correctamente.</div>`);
-      } else {
-        $("#respuestaAjax").html(`<div class="alert alert-danger">❌ Error al actualizar el estado.</div>`);
-      }
-    },
-    error: function() {
-      $("#respuestaAjax").html(`<div class="alert alert-danger">⚠️ Error de comunicación con el servidor.</div>`);
-=======
         $("#respuestaAjax").html(`<div class="alert alert-success alert-dismissible fade show" role="alert">
           ✅ Estado actualizado correctamente.
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>`);
 
-        aplicarFiltro(); // 🔁 Recargar filtro tras cambio
+        aplicarFiltro(); // 🔁 Refresca el filtro al cambiar estado
       } else {
         $("#respuestaAjax").html(`<div class="alert alert-danger">❌ Error al actualizar estado.</div>`);
       }
     },
     error: function () {
       $("#respuestaAjax").html(`<div class="alert alert-danger">⚠️ Error de comunicación.</div>`);
->>>>>>> 4751c00 (Filtros)
     }
   });
 });
 
-<<<<<<< HEAD
-// 🔍 Filtro de búsqueda en tiempo real
-$("#filtroPaseador").on("keyup", function() {
-  const valor = $(this).val().toLowerCase();
-  $("#tablaPaseadores tbody tr").filter(function() {
-    $(this).toggle($(this).text().toLowerCase().includes(valor));
-  });
-});
-=======
-// 🔍 Filtro con resaltado
 $("#filtroPaseador").on("input", aplicarFiltro);
->>>>>>> 4751c00 (Filtros)
 </script>
