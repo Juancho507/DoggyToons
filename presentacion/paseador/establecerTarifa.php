@@ -63,6 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["nuevoPrecio"])) {
       <tbody>
         <?php
         foreach ($todosTamanos as $tamano) {
+            if ($tamano->getId() == 5) continue; 
             $idTamano = $tamano->getId(); 
             $nombreTamano = $tamano->getTipo(); 
             $precioActual = 0; 

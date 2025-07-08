@@ -59,6 +59,7 @@ $paginas_con_autenticacion = array(
     "presentacion/paseo/paseosPendientes.php",
     "presentacion/paseo/facturasPaseo.php",
     "presentacion/paseo/verFacturas.php",
+    "presentacion/administrador/aceptarTamañosPerritos.php",
 );
 
 if (!isset($_GET["pid"])) {

@@ -27,6 +27,12 @@ $administrador->consultar();
           <i class="fa-solid fa-user-pen"></i> Editar Datos
         </a>
       </li>
+      
+       <li class="nav-item">
+        <a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/administrador/aceptarTamañosPerritos.php"); ?>">
+          <i class="fa-solid fa-dog"></i> Perritos
+        </a>
+      </li>
 
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="paseadoresDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
