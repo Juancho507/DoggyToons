@@ -96,6 +96,7 @@ public function setPaseador($paseador) {
         
         if ($conexion->getResultado()) {
             $idInsertado = $conexion->obtenerId(); 
+            $this->id = $idInsertado; 
             $conexion->ejecutar($paseoDAO->insertarPaseoPerro($idInsertado, $idPerro));
             $conexion->cerrar();
             return true;
@@ -104,6 +105,51 @@ public function setPaseador($paseador) {
         $conexion->cerrar();
         return false;
     }
+    public function asociarPerro($idPerro) {
+        $conexion = new Conexion();
+        $conexion->abrir();
+        $paseoDAO = new PaseoDAO();
+        $conexion->ejecutar($paseoDAO->insertarPaseoPerro($this->id, $idPerro));
+        $conexion->cerrar();
+        return true;
+    }
+public function buscarHistorial($rol, $idUsuario, $palabras) {
+    $conexion = new Conexion();
+    $conexion->abrir();
+    $dao = new PaseoDAO();
+
+    if ($rol === "dueño") {
+        $sql = $dao->buscarHistorialDueño($idUsuario, $palabras);
+    } else {
+        $sql = $dao->buscarHistorialPaseador($idUsuario, $palabras);
+    }
+
+    $conexion->ejecutar($sql);
+
+    $lista = [];
+    while ($registro = $conexion->registro()) {
+        $paseo = new Paseo(
+            $registro[0],
+            $registro[1],
+            $registro[2],
+            $rol === "dueño" ? $registro[3] : "",
+            $registro[4],
+            $registro[5],
+            $registro[6]
+        );
+        $paseo->setPrecio($registro[7]);
+
+        if ($rol === "paseador") {
+            $paseo->setDueño($registro[3]);
+        }
+
+        $lista[] = $paseo;
+    }
+
+    $conexion->cerrar();
+    return $lista;
+}
+
 
     public function consultarHistorial($rol, $idUsuarioSesion) {
     $listaPaseos = [];

@@ -23,6 +23,64 @@ class PaseoDAO {
         return "INSERT INTO PaseoPerro (Paseo_idPaseo, Perro_idPerro)
                 VALUES (" . $idPaseo . ", " . $idPerro . ")";
     }
+public function buscarHistorialDueño($idDueño, $palabras) {
+    $condiciones = array_map(function($palabra) {
+        $p = addslashes($palabra);
+        return "(per.Nombre LIKE '%$p%' OR ep.Valor LIKE '%$p%' OR p.FechaInicio LIKE '%$p%' OR p.FechaFin LIKE '%$p%' OR CONCAT(pas.Nombre, ' ', pas.Apellido) LIKE '%$p%' OR t.PrecioHora LIKE '%$p%')";
+    }, $palabras);
+
+    return "SELECT
+                p.idPaseo,
+                p.FechaInicio,
+                p.FechaFin,
+                CONCAT(pas.Nombre, ' ', pas.Apellido) AS paseador,
+                ep.Valor,
+                per.Nombre,
+                per.idPerro,
+                t.PrecioHora
+            FROM Paseo p
+            INNER JOIN Paseador pas ON p.Paseador_idPaseador = pas.idPaseador
+            INNER JOIN EstadoPaseo ep ON p.EstadoPaseo_idEstadoPaseo = ep.idEstadoPaseo
+            INNER JOIN PaseoPerro pp ON p.idPaseo = pp.Paseo_idPaseo
+            INNER JOIN Perro per ON pp.Perro_idPerro = per.idPerro
+            INNER JOIN Raza r ON per.Raza_idRaza = r.idRaza
+            INNER JOIN Tamaño tam ON r.Tamaño_idTamaño = tam.idTamaño
+            INNER JOIN Tarifa t ON t.Paseador_idPaseador = pas.idPaseador AND t.Tamaño_idTamaño = tam.idTamaño
+            WHERE per.Dueño_idDueño = $idDueño " . 
+            (!empty($condiciones) ? " AND (" . implode(" AND ", $condiciones) . ")" : "") . "
+            ORDER BY p.FechaInicio DESC";
+}
+
+public function buscarHistorialPaseador($idPaseador, $palabras) {
+    $condiciones = array_map(function($palabra) {
+        $p = addslashes($palabra);
+        return "(per.Nombre LIKE '%$p%' OR ep.Valor LIKE '%$p%' OR p.FechaInicio LIKE '%$p%' OR p.FechaFin LIKE '%$p%' OR CONCAT(due.Nombre, ' ', due.Apellido) LIKE '%$p%' OR t.PrecioHora LIKE '%$p%')";
+    }, $palabras);
+
+    return "SELECT
+                p.idPaseo,
+                p.FechaInicio,
+                p.FechaFin,
+                CONCAT(due.Nombre, ' ', due.Apellido) AS dueño,
+                ep.Valor,
+                per.Nombre,
+                per.idPerro,
+                t.PrecioHora
+            FROM Paseo p
+            INNER JOIN EstadoPaseo ep ON p.EstadoPaseo_idEstadoPaseo = ep.idEstadoPaseo
+            INNER JOIN Paseador pas ON p.Paseador_idPaseador = pas.idPaseador
+            INNER JOIN PaseoPerro pp ON p.idPaseo = pp.Paseo_idPaseo
+            INNER JOIN Perro per ON pp.Perro_idPerro = per.idPerro
+            INNER JOIN Dueño due ON per.Dueño_idDueño = due.idDueño
+            INNER JOIN Raza r ON per.Raza_idRaza = r.idRaza
+            INNER JOIN Tamaño tam ON r.Tamaño_idTamaño = tam.idTamaño
+            INNER JOIN Tarifa t ON t.Paseador_idPaseador = pas.idPaseador AND t.Tamaño_idTamaño = tam.idTamaño
+            WHERE p.Paseador_idPaseador = $idPaseador " .
+            (!empty($condiciones) ? " AND (" . implode(" AND ", $condiciones) . ")" : "") . "
+            ORDER BY p.FechaInicio DESC";
+}
+
+
     public function consultarPaseosPorDueño($idDueño) {
     return "SELECT
         p.idPaseo,

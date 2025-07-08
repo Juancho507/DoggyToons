@@ -10,13 +10,27 @@ $paseos = $paseo->consultarHistorial("paseador", $id);
 
 $estadoP = new EstadoPaseo();
 $estadosPaseo = $estadoP->consultarTodos();
-
+$paseosAgrupados = [];
+foreach ($paseos as $p) {
+    $idPaseo = $p->getId();
+    
+    if (!isset($paseosAgrupados[$idPaseo])) {
+        $paseosAgrupados[$idPaseo] = new stdClass();
+        $paseosAgrupados[$idPaseo]->id = $idPaseo;
+        $paseosAgrupados[$idPaseo]->fecha = substr($p->getFechaInicio(), 0, 10);
+        $paseosAgrupados[$idPaseo]->hora = substr($p->getFechaInicio(), 11, 5);
+        $paseosAgrupados[$idPaseo]->estado = $p->getEstadoPaseo();
+        $paseosAgrupados[$idPaseo]->perros = [$p->getNombrePerro()];
+    } else {
+        $paseosAgrupados[$idPaseo]->perros[] = $p->getNombrePerro();
+    }
+}
 ?>
 
 <div class="container mt-4">
     <h2>Paseos</h2>
 
-    <?php if (empty($paseos)) { ?>
+    <?php if (empty($paseosAgrupados)) { ?>
         <div class="alert alert-info">No tienes paseos registrados.</div>
     <?php } else { ?>
         <table class="table table-bordered table-hover">
@@ -24,23 +38,24 @@ $estadosPaseo = $estadoP->consultarTodos();
                 <tr class="table-danger">
                     <th>Fecha</th>
                     <th>Hora</th>
-                    <th>Perro</th>
+                    <th>Perro(s)</th>
                     <th>Estado</th>
                     <th>Actualizar Estado</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($paseos as $p) {
-                    $uniqueElementId = $p->getId() . '_' . $p->getIdPerro(); 
+                <?php foreach ($paseosAgrupados as $p): 
+                    $uniqueElementId = $p->id;
                     ?>
-                    <tr >
-                        <td><?php echo substr($p->getFechaInicio(), 0, 10); ?></td>
-                        <td><?php echo substr($p->getFechaInicio(), 11, 5); ?></td>
-                        <td><?php echo $p->getNombrePerro(); ?></td>
-                        <td id="estadoTexto<?php echo $uniqueElementId; ?>"><?php echo $p->getEstadoPaseo(); ?></td>
+                    <tr>
+                        <td><?php echo $p->fecha; ?></td>
+                        <td><?php echo $p->hora; ?></td>
+                        <td><?php echo implode(", ", $p->perros); ?></td>
+                        <td id="estadoTexto<?php echo $uniqueElementId; ?>"><?php echo $p->estado; ?></td>
                         <td>
                             <?php foreach ($estadosPaseo as $e) {
-                                if ($e->getId() == 1) continue;?>
+                                if ($e->getId() == 1) continue;
+                                ?>
                                 <button class="btn btn-outline-dark btn-sm me-1"
                                     id="btnEstado<?php echo $e->getValor() . $uniqueElementId; ?>">
                                     <?php echo $e->getValor(); ?>
@@ -48,7 +63,7 @@ $estadosPaseo = $estadoP->consultarTodos();
                             <?php } ?>
                         </td>
                     </tr>
-                <?php } ?>
+                <?php endforeach; ?>
             </tbody>
         </table>
     <?php } ?>
@@ -57,8 +72,8 @@ $estadosPaseo = $estadoP->consultarTodos();
 <script>
 $(document).ready(function(){
 <?php
-foreach ($paseos as $p) {
-    $uniqueElementId = $p->getId() . '_' . $p->getIdPerro(); 
+foreach ($paseosAgrupados as $p) {
+    $uniqueElementId = $p->id;
     foreach ($estadosPaseo as $e) {
         if ($e->getId() == 1) continue;
 
@@ -66,7 +81,7 @@ foreach ($paseos as $p) {
         echo '  $.ajax({' . "\n";
         echo '    url: "ajax/actualizarEstadoPaseo.php",' . "\n";
         echo '    method: "GET",' . "\n";
-        echo '    data: { id: "' . $p->getId() . '", estado: "' . $e->getId() . '" },' . "\n";
+        echo '    data: { id: "' . $uniqueElementId . '", estado: "' . $e->getId() . '" },' . "\n";
         echo '    success: function(response) {' . "\n";
         echo '      $("#estadoTexto' . $uniqueElementId . '").text("' . $e->getValor() . '");' . "\n";
         echo '    }' . "\n";

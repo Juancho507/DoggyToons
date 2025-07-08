@@ -6,28 +6,38 @@ $mensaje = "";
 $perro = new Perro();
 $listaPerros = $perro->consultar("dueño", $id);
 $paseador = new Paseador();
-$paseadores = $paseador->consultarTodos(); 
+$paseadores = $paseador->consultarTodos();
 
 if (isset($_POST["solicitar"])) {
-    $idPerro = $_POST["perro"];
+    $idPerro1 = $_POST["perro1"];
+    $idPerro2 = $_POST["perro2"];
     $idPaseador = $_POST["paseador"];
-    $fechaHora = $_POST["fecha_hora"]; 
+    $fechaHora = $_POST["fecha_hora"];
     
-    if (!empty($idPerro) && !empty($idPaseador) && !empty($fechaHora)) {
-        $estadoPendiente = 1;
-        $fechaInicio = new DateTime($fechaHora);
-        $fechaFin = clone $fechaInicio;
-        $fechaFin->modify('+1 hour');
-        $fechaInicioSQL = $fechaInicio->format('Y-m-d H:i:s');
-        $fechaFinSQL = $fechaFin->format('Y-m-d H:i:s');
-        $paseo = new Paseo(0, $fechaInicioSQL, $fechaFinSQL, $idPaseador, $estadoPendiente);
-        if ($paseo->insertar($idPerro)) {
-            $mensaje = "<div class='alert alert-success'>Solicitud enviada. Espere que el paseador acepte el paseo.</div>";
+    if (!empty($idPerro1) && !empty($idPaseador) && !empty($fechaHora)) {
+        if ($idPerro1 === $idPerro2 && !empty($idPerro2)) {
+            $mensaje = "<div class='alert alert-warning'>No puede seleccionar dos veces el mismo perro.</div>";
         } else {
-            $mensaje = "<div class='alert alert-danger'>Error al solicitar el paseo. Intente nuevamente.</div>";
+            $estadoPendiente = 1;
+            $fechaInicio = new DateTime($fechaHora);
+            $fechaFin = clone $fechaInicio;
+            $fechaFin->modify('+1 hour');
+            $fechaInicioSQL = $fechaInicio->format('Y-m-d H:i:s');
+            $fechaFinSQL = $fechaFin->format('Y-m-d H:i:s');
+            
+            $paseo = new Paseo(0, $fechaInicioSQL, $fechaFinSQL, $idPaseador, $estadoPendiente);
+            
+            if ($paseo->insertar($idPerro1)) {
+                if (!empty($idPerro2)) {
+                    $paseo->asociarPerro($idPerro2);
+                }
+                $mensaje = "<div class='alert alert-success'>Solicitud enviada. Espere que el paseador acepte el paseo.</div>";
+            } else {
+                $mensaje = "<div class='alert alert-danger'>Error al solicitar el paseo. Intente nuevamente.</div>";
+            }
         }
     } else {
-        $mensaje = "<div class='alert alert-warning'>Debe llenar todos los campos.</div>";
+        $mensaje = "<div class='alert alert-warning'>Debe llenar todos los campos obligatorios.</div>";
     }
 }
 ?>
@@ -49,8 +59,8 @@ include("presentacion/menu" . ucfirst($rol) . ".php");
                     <?php echo $mensaje; ?>
                     <form method="post">
                         <div class="mb-3">
-                            <label class="form-label">Seleccione un perro</label>
-                            <select name="perro" class="form-control" required>
+                            <label class="form-label">Seleccione un primer perro</label>
+                            <select name="perro1" class="form-control" required>
                                 <option value="">-- Seleccione --</option>
                                 <?php foreach ($listaPerros as $p) { ?>
                                     <option value="<?php echo $p->getId(); ?>">
@@ -58,6 +68,21 @@ include("presentacion/menu" . ucfirst($rol) . ".php");
                                     </option>
                                 <?php } ?>
                             </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Seleccione un segundo perro (opcional)</label>
+                            <select name="perro2" class="form-control">
+                                <option value="">-- Ninguno --</option>
+                                <?php foreach ($listaPerros as $p) { ?>
+                                    <option value="<?php echo $p->getId(); ?>">
+                                        <?php echo htmlspecialchars($p->getNombre()); ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
+                            <small class="form-text text-muted">
+                                Puede seleccionar hasta 2 perros. Un paseador solo puede pasear como máximo 2 perros a la vez. No repita el mismo perro.
+                            </small>
                         </div>
 
                         <div class="mb-3">
@@ -86,5 +111,16 @@ include("presentacion/menu" . ucfirst($rol) . ".php");
         </div>
     </div>
 </div>
+<script>
+document.querySelector('select[name="perro1"]').addEventListener('change', function () {
+    let perro1 = this.value;
+    let opciones = document.querySelectorAll('select[name="perro2"] option');
+
+    opciones.forEach(op => {
+        op.disabled = (op.value === perro1 && perro1 !== "");
+    });
+});
+</script>
+
 </body>
 </html>
