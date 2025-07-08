@@ -52,6 +52,7 @@ if(isset($_POST["autenticarse"])){
             <li class="d-flex justify-content-center align-items-center mb-2"><span>✔️ Elije a tu paseador</span></li>
             <li class="d-flex justify-content-center align-items-center mb-2"><span>✔️ Elije tus horarios</span></li>
             <li class="d-flex justify-content-center align-items-center"><span>✔️ Elije tu precio</span></li>
+            <li class="d-flex justify-content-center align-items-center"><span>✔️ Solo pagos en efectivo y en persona</span></li>
           </ul>
         </div>
       </div>
